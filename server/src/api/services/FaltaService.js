@@ -48,13 +48,13 @@ class FaltaService {
 
     async getByFuncionario(id) {
         try {
-            const falta = await this.prisma.falta.findMany({
+            const faltas = await this.prisma.falta.findMany({
                 where: {
                     funcionarioId: id,
                 },
             });
 
-            return falta;
+            return faltas;
         } catch (error) {
             throw new Error(`Erro ao buscar faltas: ${error.message}`);
         }

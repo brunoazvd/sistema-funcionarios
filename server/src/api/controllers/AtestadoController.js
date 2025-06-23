@@ -28,15 +28,6 @@ export default {
         }
     },
 
-    async atualizarAtestado(req, res) {
-        try {
-            const atestado = await AtestadoService.update(Number(req.params.id), req.body);
-            res.status(200).json(atestado);
-        } catch (error) {
-            res.status(400).json({ error: true, message: error.message });
-        }
-    },
-
     async buscarPorFuncionario(req, res) {
         try {
             const atestado = await AtestadoService.getByFuncionario(Number(req.params.id));
