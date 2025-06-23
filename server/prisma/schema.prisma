@@ -1,0 +1,78 @@
+datasource db {
+    provider = "mysql"
+    url      = env("DATABASE_URL")
+}
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+enum Cargo {
+    DIRETOR
+    DIRETOR_ADJUNTO
+    PROFESSOR
+    MONITOR_DE_ALUNOS
+    INSPETOR_DE_ALUNOS
+    ORIENTADOR_EDUCACIONAL
+    ORIENTADOR_PEDAGOGICO
+    INSPETOR_ESCOLAR
+    AUXILIAR_SECRETARIA
+    SECRETARIO
+    VIGIA
+    COZINHEIRO
+    AUXILIAR_DE_SERVICOS_GERAIS
+    PEDAGOGO_NAE
+    DIRIGENTE_TURNO
+}
+
+enum TipoAtestado {
+    COMPARECIMENTO
+    ATESTADO_MEDICO
+}
+
+enum StatusFuncionario {
+    ATIVO
+    INATIVO
+}
+
+enum TipoContrato {
+    EFETIVO
+    CONTRATO
+}
+
+model Funcionario {
+    id             Int               @id @default(autoincrement())
+    nome           String
+    cargo          Cargo
+    status         StatusFuncionario
+    sexo           String
+    cpf            String?           @unique
+    dataNascimento DateTime?
+    dataAdmissao   DateTime?
+    email          String?           @unique
+    telefone       String?
+    criadoEm       DateTime          @default(now())
+    atualizadoEm   DateTime          @updatedAt
+    faltas         Falta[]
+    atestados      Atestado[]
+    tipoContrato   TipoContrato
+}
+
+model Atestado {
+    id            Int          @id @default(autoincrement())
+    funcionario   Funcionario  @relation(fields: [funcionarioId], references: [id])
+    funcionarioId Int
+    data          DateTime
+    dias          Int          @default(1)
+    tipo          TipoAtestado
+    criadoEm      DateTime     @default(now())
+}
+
+model Falta {
+    id            Int         @id @default(autoincrement())
+    funcionario   Funcionario @relation(fields: [funcionarioId], references: [id])
+    funcionarioId Int
+    data          DateTime
+    observacao    String?
+    criadoEm      DateTime    @default(now())
+}
