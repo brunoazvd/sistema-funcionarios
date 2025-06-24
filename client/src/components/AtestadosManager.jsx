@@ -53,7 +53,7 @@ const AtestadosManager = () => {
 					</button>
 				</div>
 				<div className="flex flex-row gap-3 w-full px-6">
-					<button className="bg-indigo-400 hover:bg-indigo-500 px-3 h-8 mt-auto mx-auto">
+					<button className="bg-indigo-400 hover:bg-indigo-500 px-3 h-8 mt-auto ml-auto">
 						Cadastrar Atestado
 					</button>
 				</div>

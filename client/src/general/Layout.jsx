@@ -1,5 +1,5 @@
 import { ErrorBoundary } from "react-error-boundary";
-import { ErrorFallback } from "../components/ErrorFallback.jsx";
+import { ErrorFallback } from "./ErrorFallback.jsx";
 
 export const Layout = ({ children }) => {
 	return (
