@@ -14,8 +14,8 @@ const AtestadosManager = () => {
 
 	return (
 		<>
-			<div className="flex flex-row">
-				<div className="flex flex-row gap-3 border-3 border-t-0 border-indigo-900 w-min px-6 pb-6 pt-4">
+			<div className="flex flex-row border-b-3 border-indigo-900 pb-6 pt-4 mb-9">
+				<div className="flex flex-row gap-3 w-min px-6">
 					<div>
 						<p>Funcionário:</p>
 						<Input
@@ -52,7 +52,7 @@ const AtestadosManager = () => {
 						Pesquisar
 					</button>
 				</div>
-				<div className="flex flex-row gap-3 border-3 border-t-0 border-l-0 border-indigo-900 w-full px-6 pb-6 pt-4">
+				<div className="flex flex-row gap-3 w-full px-6">
 					<button className="bg-indigo-400 hover:bg-indigo-500 px-3 h-8 mt-auto mx-auto">
 						Cadastrar Atestado
 					</button>
