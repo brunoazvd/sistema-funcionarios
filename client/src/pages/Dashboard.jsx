@@ -1,9 +1,11 @@
+import AtestadosManager from "../components/AtestadosManager";
+
 import { Tabs } from "@base-ui-components/react/tabs";
 
 export const Dashboard = () => (
 	<div className="flex max-w-6xl mx-auto w-full flex-col">
 		<Tabs.Root>
-			<Tabs.List className="relative z-0 flex items-center justify-center gap-9 shadow-[inset_0_-3px] shadow-indigo-900 text-xl py-6 px-6 mb-9">
+			<Tabs.List className="relative z-0 flex items-center justify-center gap-9 shadow-[inset_0_-3px] shadow-indigo-900 text-xl py-6 px-6">
 				<Tabs.Tab
 					className="border-0 px-2 font-medium text-indigo-200 outline-none select-none data-[selected]:text-indigo-500"
 					value="funcionarios"
@@ -35,9 +37,7 @@ export const Dashboard = () => (
 				</h2>
 			</Tabs.Panel>
 			<Tabs.Panel value="atestados">
-				<h2 className="text-center text-5xl font-extrabold tracking-tight">
-					Atestados
-				</h2>
+				<AtestadosManager />
 			</Tabs.Panel>
 		</Tabs.Root>
 	</div>
