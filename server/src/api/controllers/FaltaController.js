@@ -1,4 +1,4 @@
-import FaltaService from '../services/FaltaService';
+import FaltaService from '../services/FaltaService.js';
 
 export default {
     async criarFalta(req, res) {

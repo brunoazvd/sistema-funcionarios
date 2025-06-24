@@ -1,4 +1,4 @@
-import FuncionarioService from '../services/FuncionarioService';
+import FuncionarioService from '../services/FuncionarioService.js';
 
 export default {
     async criarFuncionario(req, res) {

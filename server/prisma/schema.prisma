@@ -44,7 +44,7 @@ model Funcionario {
     id             Int               @id @default(autoincrement())
     nome           String
     cargo          Cargo
-    status         StatusFuncionario
+    status         StatusFuncionario @default(ATIVO)
     sexo           String
     cpf            String?           @unique
     dataNascimento DateTime?

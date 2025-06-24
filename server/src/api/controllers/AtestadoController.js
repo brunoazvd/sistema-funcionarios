@@ -1,4 +1,4 @@
-import AtestadoService from '../services/AtestadoService';
+import AtestadoService from '../services/AtestadoService.js';
 
 export default {
     async criarAtestado(req, res) {
