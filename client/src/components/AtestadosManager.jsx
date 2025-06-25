@@ -7,8 +7,8 @@ import AtestadosForm from "./AtestadosForm";
 import { useState } from "react";
 
 const initialState = {
-	minDate: null,
-	maxDate: null,
+	minDate: "",
+	maxDate: "",
 	funcionario: "",
 };
 
@@ -16,46 +16,63 @@ const AtestadosManager = () => {
 	const [formData, setFormData] = useState(initialState);
 	const [results, setResults] = useState([]);
 
+	const handleChange = (event) => {
+		const { name, value } = event.target;
+		setFormData({
+			...formData,
+			[name]: value,
+		});
+	};
+
+	const handleSubmit = (event) => {
+		event.preventDefault();
+		// TODO: Enviar formulário para o servidor
+	};
+
 	return (
 		<>
 			<div className="flex flex-row border-b-3 border-indigo-900 pb-6 pt-4 mb-9">
-				<div className="flex flex-row gap-3 w-min px-6">
+				<form
+					className="flex flex-row gap-3 w-min px-6"
+					onSubmit={handleSubmit}
+				>
 					<div>
 						<p>Funcionário:</p>
 						<Input
 							className="bg-indigo-50 text-black px-2 py-1"
 							type="text"
 							value={formData.funcionario}
-							onChange={(e) =>
-								setFormData({
-									...formData,
-									funcionario: e.target.value,
-								})
-							}
+							name="funcionario"
+							onChange={handleChange}
 						/>
 					</div>
 					<div>
 						<p>Data Inicial:</p>
-						<CustomDatePicker
+						<Input
+							name="minDate"
+							className="bg-indigo-50 w-full px-2 py-1 text-black"
+							type="date"
 							value={formData.minDate}
-							handleChange={(newValue) =>
-								setFormData({ ...formData, minDate: newValue })
-							}
+							onChange={handleChange}
 						/>
 					</div>
 					<div>
 						<p>Data Final:</p>
-						<CustomDatePicker
+						<Input
+							name="maxDate"
+							className="bg-indigo-50 w-full px-2 py-1 text-black"
+							type="date"
 							value={formData.maxDate}
-							handleChange={(newValue) =>
-								setFormData({ ...formData, maxDate: newValue })
-							}
+							onChange={handleChange}
 						/>
 					</div>
-					<button className="bg-indigo-400 hover:bg-indigo-500 px-3 h-8 mt-auto">
+					<button
+						className="bg-indigo-400 hover:bg-indigo-500 px-3 h-8 mt-auto"
+						type="submit"
+					>
 						Pesquisar
 					</button>
-				</div>
+				</form>
 				<div className="flex flex-row gap-3 w-full px-6">
 					<Dialog.Root>
 						<Dialog.Trigger

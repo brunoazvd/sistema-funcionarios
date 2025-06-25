@@ -31,7 +31,7 @@ const AtestadosForm = () => {
 			<p className="text-center text-xl -mt-1.5 mb-3 font-bold tracking-wide">
 				Cadastrar Novo Atestado
 			</p>
-			<div className="flex flex-col gap-3 mb-3">
+			<div className="flex flex-col gap-3 mb-6">
 				<div>
 					<p className="font-medium mb-1">Funcionário:</p>
 					<Input
@@ -52,16 +52,6 @@ const AtestadosForm = () => {
 						onChange={handleChange}
 					/>
 				</div>
-				{/* <div>
-					<p className="font-medium">Tipo:</p>
-					<Input
-						name="tipo"
-						className="bg-indigo-50 w-full px-2 py-1"
-						type="text"
-						value={formData.tipo}
-						onChange={handleChange}
-					/>
-				</div> */}
 				<div>
 					<p className="font-medium mb-1">Tipo:</p>
 					<select
