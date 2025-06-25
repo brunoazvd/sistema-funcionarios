@@ -37,7 +37,7 @@ const AtestadosManager = () => {
 					onSubmit={handleSubmit}
 				>
 					<div>
-						<p>Funcionário:</p>
+						<p className="mb-1">Funcionário:</p>
 						<Input
 							className="bg-indigo-50 text-black px-2 py-1"
 							type="text"
@@ -47,7 +47,7 @@ const AtestadosManager = () => {
 						/>
 					</div>
 					<div>
-						<p>Data Inicial:</p>
+						<p className="mb-1">Data Inicial:</p>
 						<Input
 							name="minDate"
 							className="bg-indigo-50 w-full px-2 py-1 text-black"
@@ -57,7 +57,7 @@ const AtestadosManager = () => {
 						/>
 					</div>
 					<div>
-						<p>Data Final:</p>
+						<p className="mb-1">Data Final:</p>
 						<Input
 							name="maxDate"
 							className="bg-indigo-50 w-full px-2 py-1 text-black"
@@ -82,7 +82,7 @@ const AtestadosManager = () => {
 							Cadastrar Atestado
 						</Dialog.Trigger>
 						<Dialog.Portal>
-							<Dialog.Backdrop className="fixed inset-0 bg-black opacity-20 transition-all duration-150 data-[ending-style]:opacity-0 data-[starting-style]:opacity-0 dark:opacity-70" />
+							<Dialog.Backdrop className="fixed inset-0 bg-black opacity-20 transition-all duration-150 data-[ending-style]:opacity-0 data-[starting-style]:opacity-0 dark:opacity-50" />
 							<Dialog.Popup className="fixed top-1/2 left-1/2 -mt-8 min-w-md max-w-[calc(100vw-3rem)] -translate-x-1/2 -translate-y-1/2 rounded-lg bg-indigo-100 p-6 text-black outline outline-indigo-200 transition-all duration-150 data-[ending-style]:scale-90 data-[ending-style]:opacity-0 data-[starting-style]:scale-90 data-[starting-style]:opacity-0">
 								<AtestadosForm />
 							</Dialog.Popup>
