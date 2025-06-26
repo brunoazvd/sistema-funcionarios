@@ -2,15 +2,14 @@ import { Input } from "@base-ui-components/react/input";
 
 import { useState } from "react";
 
-import { cadastrarAtestado } from "../services/api/atestados";
+import { cadastrarFalta } from "../services/api/faltas";
 import FuncionarioSelect from "./FuncionarioSelect.jsx";
 
-const AtestadosForm = ({ closeForm }) => {
+const FaltasForm = () => {
 	const [formData, setFormData] = useState({
 		funcionarioId: "",
 		data: "",
-		dias: "0",
-		tipo: "",
+		observacao: "",
 	});
 
 	const handleChange = (event) => {
@@ -23,19 +22,28 @@ const AtestadosForm = ({ closeForm }) => {
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
-		const atestado = await cadastrarAtestado({
-			funcionarioId: Number(formData.funcionarioId),
-			data: new Date(formData.data),
-			dias: Number(formData.dias),
-			tipo: formData.tipo,
-		});
-		closeForm();
+		try {
+			const falta = await cadastrarFalta({
+				funcionarioId: Number(formData.funcionarioId),
+				data: new Date(formData.data),
+				observacao: formData.observacao || null,
+			});
+			console.log('Falta cadastrada:', falta);
+			// Reset form
+			setFormData({
+				funcionarioId: "",
+				data: "",
+				observacao: "",
+			});
+		} catch (error) {
+			console.error('Erro ao cadastrar falta:', error);
+		}
 	};
 
 	return (
 		<form className="w-full" onSubmit={handleSubmit}>
 			<p className="text-center text-xl -mt-1.5 mb-3 font-bold tracking-wide">
-				Cadastrar Novo Atestado
+				Cadastrar Nova Falta
 			</p>
 			<div className="flex flex-col gap-3 mb-6">
 				<div>
@@ -60,35 +68,16 @@ const AtestadosForm = ({ closeForm }) => {
 					/>
 				</div>
 				<div>
-					<p className="font-medium mb-1">Tipo:</p>
-					<select
-						required
-						className="bg-indigo-50 w-full py-1 px-2"
-						name="tipo"
+					<p className="font-medium mb-1">Observação (opcional):</p>
+					<textarea
+						name="observacao"
+						className="bg-indigo-50 w-full px-2 py-1 resize-none"
+						rows="3"
+						value={formData.observacao}
 						onChange={handleChange}
-						value={formData.tipo}
-					>
-						<option value="" disabled>
-							Tipo do Atestado
-						</option>
-						<option value="COMPARECIMENTO">
-							Atestado de Comparecimento
-						</option>
-						<option value="ATESTADO_MEDICO">Atestado Médico</option>
-					</select>
+						placeholder="Observações sobre a falta..."
+					/>
 				</div>
-				{formData.tipo == "ATESTADO_MEDICO" && (
-					<div>
-						<p className="font-medium mb-1">Dias:</p>
-						<Input
-							name="dias"
-							className="bg-indigo-50 w-full px-2 py-1"
-							type="number"
-							value={formData.dias}
-							onChange={handleChange}
-						/>
-					</div>
-				)}
 			</div>
 			<button
 				type="submit"
@@ -100,4 +89,4 @@ const AtestadosForm = ({ closeForm }) => {
 	);
 };
 
-export default AtestadosForm;
+export default FaltasForm;

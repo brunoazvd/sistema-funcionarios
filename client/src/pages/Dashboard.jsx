@@ -1,4 +1,5 @@
 import AtestadosManager from "../components/AtestadosManager";
+import FaltasForm from "../components/FaltasForm";
 
 import { Tabs } from "@base-ui-components/react/tabs";
 
@@ -27,14 +28,12 @@ export const Dashboard = () => (
 				<Tabs.Indicator className="absolute top-1/2 left-0 z-[-1] h-8 w-[var(--active-tab-width)] -translate-y-1/2 translate-x-[var(--active-tab-left)] bg-indigo-50 transition-all duration-400 ease-in-out" />
 			</Tabs.List>
 			<Tabs.Panel value="funcionarios">
-				<h2 className="text-center text-5xl font-extrabold tracking-tight">
-					Funcionários
-				</h2>
+				<h2>Funcionários</h2>
 			</Tabs.Panel>
 			<Tabs.Panel value="faltas">
-				<h2 className="text-center text-5xl font-extrabold tracking-tight">
-					Faltas
-				</h2>
+				<div className="max-w-md mx-auto mt-8">
+					<FaltasForm />
+				</div>
 			</Tabs.Panel>
 			<Tabs.Panel value="atestados">
 				<AtestadosManager />
