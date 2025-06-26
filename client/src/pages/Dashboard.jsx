@@ -1,7 +1,8 @@
 import AtestadosManager from "../components/AtestadosManager";
 import FaltasForm from "../components/FaltasForm";
-
+import ToastList from "../components/ToastList";
 import { Tabs } from "@base-ui-components/react/tabs";
+import { Toast } from "@base-ui-components/react/toast";
 
 export const Dashboard = () => (
 	<div className="flex max-w-6xl mx-auto w-full flex-col">
@@ -39,5 +40,10 @@ export const Dashboard = () => (
 				<AtestadosManager />
 			</Tabs.Panel>
 		</Tabs.Root>
+		<Toast.Portal>
+			<Toast.Viewport className="fixed top-auto right-[1rem] bottom-[1rem] mx-auto flex w-[250px] sm:right-[2rem] sm:bottom-[2rem] sm:w-[300px]">
+				<ToastList />
+			</Toast.Viewport>
+		</Toast.Portal>
 	</div>
 );
