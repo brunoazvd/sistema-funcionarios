@@ -13,23 +13,28 @@ router.get("/", (req, res) => {
 });
 
 // Funcionários
+router.get("/api/funcionarios", FuncionarioController.buscarTodos);
+router.get("/api/funcionarios/:id", FuncionarioController.buscarPorId);
 router.post("/api/funcionarios/novo", FuncionarioController.criarFuncionario);
-router.get("/api/funcionarios/:id", FuncionarioController.buscarFuncionarioPorId);
-router.get("/api/funcionarios", FuncionarioController.buscarFuncionarios);
 router.put("/api/funcionarios/:id", FuncionarioController.atualizarFuncionario);
 router.delete("/api/funcionarios/:id", FuncionarioController.deletarFuncionario);
 
 // Faltas
+router.get("/api/faltas/funcionario/:id", FaltaController.buscarPorFuncionario);
+router.get("/api/faltas/pesquisar", FaltaController.pesquisar);
+router.get("/api/faltas/id/:id", FaltaController.buscarPorId);
+router.get("/api/faltas/todos", FaltaController.buscarTodos);
 router.post("/api/faltas/novo", FaltaController.criarFalta);
-router.get("/api/faltas/buscar/:id", FaltaController.buscarPorFuncionario);
 router.put("/api/faltas/:id", FaltaController.atualizarFalta);
 router.delete("/api/faltas/:id", FaltaController.deletarFalta);
 
 // Atestados
+router.get("/api/atestados/funcionario/:id", AtestadoController.buscarPorFuncionario);
+router.get("/api/atestados/pesquisar", AtestadoController.pesquisar);
+router.get("/api/atestados/id/:id", AtestadoController.buscarPorId);
+router.get("/api/atestados/todos", AtestadoController.buscarTodos);
 router.post("/api/atestados/novo", AtestadoController.criarAtestado);
-router.get("/api/atestados/buscar/:id", AtestadoController.buscarPorFuncionario);
 router.put("/api/atestados/:id", AtestadoController.atualizarAtestado);
 router.delete("/api/atestados/:id", AtestadoController.deletarAtestado);
-
 
 export default router

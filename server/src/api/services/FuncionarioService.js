@@ -17,6 +17,28 @@ class FuncionarioService {
         }
     }
 
+    async delete(id) {
+        try {
+            await prisma.funcionario.delete({
+                where: { id },
+            });
+        } catch (error) {
+            throw new Error(`Erro ao deletar funcionário: ${error.message}`);
+        }
+    }
+
+    async update(id, data) {
+        try {
+            const funcionario = await prisma.funcionario.update({
+                where: { id },
+                data,
+            });
+            return funcionario;
+        } catch (error) {
+            throw new Error(`Erro ao atualizar funcionário: ${error.message}`);
+        }
+    }
+
     async getAll() {
         try {
             const funcionarios = await prisma.funcionario.findMany({});
@@ -34,28 +56,6 @@ class FuncionarioService {
             return funcionario;
         } catch (error) {
             throw new Error(`Erro ao buscar funcionário: ${error.message}`);
-        }
-    }
-
-    async update(id, data) {
-        try {
-            const funcionario = await prisma.funcionario.update({
-                where: { id },
-                data,
-            });
-            return funcionario;
-        } catch (error) {
-            throw new Error(`Erro ao atualizar funcionário: ${error.message}`);
-        }
-    }
-
-    async delete(id) {
-        try {
-            await prisma.funcionario.delete({
-                where: { id },
-            });
-        } catch (error) {
-            throw new Error(`Erro ao deletar funcionário: ${error.message}`);
         }
     }
 }

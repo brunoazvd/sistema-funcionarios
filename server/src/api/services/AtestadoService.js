@@ -42,6 +42,27 @@ class AtestadoService {
         }
     }
 
+    async getAll() {
+        try {
+            const atestados = await this.prisma.atestado.findMany({});
+            return atestados;
+        } catch (error) {
+            throw new Error(`Erro ao buscar atestados: ${error.message}`);
+        }
+    }
+
+    async getById(id) {
+        try {
+            const atestado = await this.prisma.atestado.findUnique({
+                where: { id }
+            });
+
+            return atestado;
+        } catch (error) {
+            throw new Error(`Erro ao buscar atestado: ${error.message}`);
+        }
+    }
+
     async getByFuncionario(id) {
         try {
             const atestados = await this.prisma.atestado.findMany({
@@ -54,6 +75,36 @@ class AtestadoService {
         }
     }
 
+    async search(initialDate, finalDate, funcionario) {
+        try {
+            const where = {}
+            if (initialDate || finalDate) {
+                where.data = {}
+                initialDate && (where.data.gte = new Date(initialDate))
+                finalDate && (where.data.lte = new Date(finalDate))
+            }
+
+            if (funcionario) {
+                where.funcionario = {
+                    nome: {
+                        contains: funcionario,
+                    },
+                }
+            }
+
+            if (Object.keys(where).length === 0) {
+                return [];
+            }
+
+            const atestados = await this.prisma.atestado.findMany({
+                where
+            });
+
+            return atestados;
+        } catch (error) {
+            throw new Error(`Erro ao buscar atestados: ${error.message}`);
+        }
+    }
 }
 
 const service = new AtestadoService();

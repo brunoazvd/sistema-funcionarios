@@ -1,7 +1,6 @@
 import { Input } from "@base-ui-components/react/input";
 import { Dialog } from "@base-ui-components/react/dialog";
 
-import CustomDatePicker from "./CustomDatePicker";
 import AtestadosForm from "./AtestadosForm";
 
 import { useState } from "react";

@@ -46,12 +46,66 @@ class FaltaService {
         }
     }
 
+    async getAll() {
+        try {
+            const faltas = await this.prisma.falta.findMany({});
+            return faltas;
+        } catch (error) {
+            throw new Error(`Erro ao buscar faltas: ${error.message}`);
+        }
+    }
+
+    async getById(id) {
+        try {
+            const falta = await this.prisma.falta.findUnique({
+                where: {
+                    id,
+                },
+            });
+
+            return falta;
+        } catch (error) {
+            throw new Error(`Erro ao buscar falta: ${error.message}`);
+        }
+    }
+
     async getByFuncionario(id) {
         try {
             const faltas = await this.prisma.falta.findMany({
                 where: {
                     funcionarioId: id,
                 },
+            });
+
+            return faltas;
+        } catch (error) {
+            throw new Error(`Erro ao buscar faltas: ${error.message}`);
+        }
+    }
+
+    async search(initialDate, finalDate, funcionario) {
+        try {
+            const where = {}
+            if (initialDate || finalDate) {
+                where.data = {}
+                initialDate && (where.data.gte = new Date(initialDate))
+                finalDate && (where.data.lte = new Date(finalDate))
+            }
+
+            if (funcionario) {
+                where.funcionario = {
+                    nome: {
+                        contains: funcionario,
+                    },
+                }
+            }
+
+            if (Object.keys(where).length === 0) {
+                return [];
+            }
+
+            const faltas = await this.prisma.falta.findMany({
+                where
             });
 
             return faltas;
