@@ -13,28 +13,28 @@ router.get("/", (req, res) => {
 });
 
 // Funcionários
-router.get("/api/funcionarios", FuncionarioController.buscarTodos);
-router.get("/api/funcionarios/:id", FuncionarioController.buscarPorId);
 router.post("/api/funcionarios/novo", FuncionarioController.criarFuncionario);
 router.put("/api/funcionarios/:id", FuncionarioController.atualizarFuncionario);
 router.delete("/api/funcionarios/:id", FuncionarioController.deletarFuncionario);
+router.get("/api/funcionarios/id/:id", FuncionarioController.buscarPorId);
+router.get("/api/funcionarios", FuncionarioController.buscarTodos);
 
 // Faltas
-router.get("/api/faltas/funcionario/:id", FaltaController.buscarPorFuncionario);
-router.get("/api/faltas/pesquisar", FaltaController.pesquisar);
+router.post("/api/faltas/novo", FaltaController.criarFalta);
+router.delete("/api/faltas/:id", FaltaController.deletarFalta);
+router.put("/api/faltas/:id", FaltaController.atualizarFalta);
 router.get("/api/faltas/id/:id", FaltaController.buscarPorId);
 router.get("/api/faltas/todos", FaltaController.buscarTodos);
-router.post("/api/faltas/novo", FaltaController.criarFalta);
-router.put("/api/faltas/:id", FaltaController.atualizarFalta);
-router.delete("/api/faltas/:id", FaltaController.deletarFalta);
+router.get("/api/faltas/funcionario/:id", FaltaController.buscarPorFuncionario);
+router.get("/api/faltas/pesquisar", FaltaController.pesquisar);
 
 // Atestados
-router.get("/api/atestados/funcionario/:id", AtestadoController.buscarPorFuncionario);
-router.get("/api/atestados/pesquisar", AtestadoController.pesquisar);
+router.post("/api/atestados/novo", AtestadoController.criarAtestado);
+router.delete("/api/atestados/:id", AtestadoController.deletarAtestado);
+router.put("/api/atestados/:id", AtestadoController.atualizarAtestado);
 router.get("/api/atestados/id/:id", AtestadoController.buscarPorId);
 router.get("/api/atestados/todos", AtestadoController.buscarTodos);
-router.post("/api/atestados/novo", AtestadoController.criarAtestado);
-router.put("/api/atestados/:id", AtestadoController.atualizarAtestado);
-router.delete("/api/atestados/:id", AtestadoController.deletarAtestado);
+router.get("/api/atestados/funcionario/:id", AtestadoController.buscarPorFuncionario);
+router.get("/api/atestados/pesquisar", AtestadoController.pesquisar);
 
 export default router

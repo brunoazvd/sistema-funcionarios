@@ -1,14 +1,5 @@
 import api from './index.js'
 
-export const buscarAtestadosPorFuncionarioId = async (id) => {
-    try {
-        const response = await api.get(`/api/atestados/buscar/${id}`);
-        return response.data;
-    } catch (error) {
-        throw new Error(`Erro ao buscar atestados: ${error.message}`);
-    }
-}
-
 export const cadastrarAtestado = async (data) => {
     try {
         const response = await api.post('/api/atestados/novo', data);
@@ -33,5 +24,41 @@ export const atualizarAtestado = async (id, data) => {
         return response.data;
     } catch (error) {
         throw new Error(`Erro ao atualizar atestado: ${error.message}`);
+    }
+}
+
+export const buscarAtestadoPorId = async (id) => {
+    try {
+        const response = await api.get(`/api/atestados/id/${id}`);
+        return response.data;
+    } catch (error) {
+        throw new Error(`Erro ao buscar atestados: ${error.message}`);
+    }
+}
+
+export const buscarTodosAtestados = async () => {
+    try {
+        const response = await api.get('/api/atestados/todos');
+        return response.data;
+    } catch (error) {
+        throw new Error(`Erro ao buscar atestados: ${error.message}`);
+    }
+}
+
+export const buscarAtestadosPorFuncionarioId = async (id) => {
+    try {
+        const response = await api.get(`/api/atestados/funcionario/${id}`);
+        return response.data;
+    } catch (error) {
+        throw new Error(`Erro ao buscar atestados: ${error.message}`);
+    }
+}
+
+export const pesquisarAtestados = async (data) => {
+    try {
+        const response = await api.get('/api/atestados/pesquisar', data);
+        return response.data;
+    } catch (error) {
+        throw new Error(`Erro ao pesquisar atestados: ${error.message}`);
     }
 }
