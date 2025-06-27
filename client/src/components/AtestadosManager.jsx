@@ -4,7 +4,7 @@ import { Dialog } from "@base-ui-components/react/dialog";
 import AtestadosResults from "./AtestadosResults";
 import AtestadosForm from "./AtestadosForm";
 
-import { pesquisarAtestados } from "../services/api/atestados";
+import { deletarAtestado, pesquisarAtestados } from "../services/api/atestados";
 
 import { useState } from "react";
 
@@ -19,6 +19,12 @@ const AtestadosManager = () => {
 	const [results, setResults] = useState([]);
 	const [modalOpen, setModalOpen] = useState(false);
 	const [currentAtestado, setCurrentAtestado] = useState(null);
+
+	const deleteAction = async (id) => {
+		if (!id) return;
+		await deletarAtestado(id);
+		setResults((prev) => prev.filter((item) => item.id !== id));
+	};
 
 	const handleChange = (event) => {
 		const { name, value } = event.target;
@@ -108,6 +114,7 @@ const AtestadosManager = () => {
 						setCurrentAtestado(atestado);
 						setModalOpen(true);
 					}}
+					deleteAction={deleteAction}
 				/>
 			)}
 		</>

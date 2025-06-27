@@ -29,8 +29,6 @@ const AtestadosForm = ({ closeModal, currentAtestado, clearAtestado }) => {
 	const [formData, setFormData] = useState(initialState);
 	const toastManager = Toast.useToastManager();
 
-	console.log(currentAtestado);
-
 	const handleChange = (event) => {
 		const { name, value } = event.target;
 		setFormData({
@@ -57,7 +55,7 @@ const AtestadosForm = ({ closeModal, currentAtestado, clearAtestado }) => {
 		} else {
 			const atestado = await atualizarAtestado(currentAtestado.id, {
 				funcionarioId: Number(formData.funcionarioId),
-				data: formData.data,
+				data: new Date(formData.data),
 				dias: Number(formData.dias),
 				tipo: formData.tipo,
 				observacao: formData.observacao || null,
