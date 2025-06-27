@@ -26,7 +26,7 @@ router.put("/api/faltas/:id", FaltaController.atualizarFalta);
 router.get("/api/faltas/id/:id", FaltaController.buscarPorId);
 router.get("/api/faltas/todos", FaltaController.buscarTodos);
 router.get("/api/faltas/funcionario/:id", FaltaController.buscarPorFuncionario);
-router.get("/api/faltas/pesquisar", FaltaController.pesquisar);
+router.post("/api/faltas/pesquisar", FaltaController.pesquisar);
 
 // Atestados
 router.post("/api/atestados/novo", AtestadoController.criarAtestado);
@@ -35,6 +35,6 @@ router.put("/api/atestados/:id", AtestadoController.atualizarAtestado);
 router.get("/api/atestados/id/:id", AtestadoController.buscarPorId);
 router.get("/api/atestados/todos", AtestadoController.buscarTodos);
 router.get("/api/atestados/funcionario/:id", AtestadoController.buscarPorFuncionario);
-router.get("/api/atestados/pesquisar", AtestadoController.pesquisar);
+router.post("/api/atestados/pesquisar", AtestadoController.pesquisar);
 
 export default router

@@ -1,15 +1,17 @@
 import { Input } from "@base-ui-components/react/input";
 import { Dialog } from "@base-ui-components/react/dialog";
 
+import ResultList from "./ResultList";
 import AtestadosForm from "./AtestadosForm";
-import FuncionarioSelect from "./FuncionarioSelect.jsx";
+
+import { pesquisarAtestados } from "../services/api/atestados";
 
 import { useState } from "react";
 
 const initialState = {
-	minDate: "",
-	maxDate: "",
-	funcionarioId: "",
+	dataInicial: "",
+	dataFinal: "",
+	funcionario: "",
 };
 
 const AtestadosManager = () => {
@@ -25,8 +27,10 @@ const AtestadosManager = () => {
 		});
 	};
 
-	const handleSubmit = (event) => {
+	const handleSubmit = async (event) => {
 		event.preventDefault();
+		const resultados = await pesquisarAtestados(formData);
+		console.log(resultados);
 		// TODO: Enviar formulário para o servidor
 	};
 
@@ -39,18 +43,18 @@ const AtestadosManager = () => {
 				>
 					<div>
 						<p className="mb-1">Funcionário:</p>
-						<FuncionarioSelect
-							name="funcionarioId"
-							value={formData.funcionarioId}
+						<Input
+							name="funcionario"
+							className="bg-indigo-50 w-full min-w-64 px-2 py-1 text-black"
+							type="text"
+							value={formData.funcionario}
 							onChange={handleChange}
-							placeholder="Todos os funcionários"
-							className="bg-indigo-50 text-black py-1 px-2"
 						/>
 					</div>
 					<div>
 						<p className="mb-1">Data Inicial:</p>
 						<Input
-							name="minDate"
+							name="dataInicial"
 							className="bg-indigo-50 w-full px-2 py-1 text-black"
 							type="date"
 							value={formData.minDate}
@@ -60,7 +64,7 @@ const AtestadosManager = () => {
 					<div>
 						<p className="mb-1">Data Final:</p>
 						<Input
-							name="maxDate"
+							name="dataFinal"
 							className="bg-indigo-50 w-full px-2 py-1 text-black"
 							type="date"
 							value={formData.maxDate}
@@ -93,7 +97,17 @@ const AtestadosManager = () => {
 					</Dialog.Root>
 				</div>
 			</div>
-			{/* Aqui estarão os resultados */}
+			{results &&
+				results.map((atestado, index) => {
+					return (
+						<div key={index}>
+							<p>{atestado.funcionario.nome}</p>
+							<p>{atestado.data}</p>
+							<p>{atestado.dias}</p>
+							<p>{atestado.tipo}</p>
+						</div>
+					);
+				})}
 		</>
 	);
 };

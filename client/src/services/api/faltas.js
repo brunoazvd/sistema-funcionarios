@@ -56,7 +56,7 @@ export const buscarFaltasPorFuncionarioId = async (id) => {
 
 export const pesquisarFaltas = async (data) => {
     try {
-        const response = await api.get('/api/faltas/pesquisar', data);
+        const response = await api.post('/api/faltas/pesquisar', data);
         return response.data;
     } catch (error) {
         throw new Error(`Erro ao pesquisar faltas: ${error.message}`);

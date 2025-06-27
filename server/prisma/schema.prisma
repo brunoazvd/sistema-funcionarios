@@ -64,6 +64,7 @@ model Atestado {
     funcionarioId Int
     data          DateTime
     dias          Int          @default(1)
+    observacao    String?
     tipo          TipoAtestado
     criadoEm      DateTime     @default(now())
 }

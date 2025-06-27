@@ -11,6 +11,7 @@ const AtestadosForm = ({ closeForm }) => {
 		data: "",
 		dias: "0",
 		tipo: "",
+		observacao: "",
 	});
 	const toastManager = Toast.useToastManager();
 
@@ -97,6 +98,16 @@ const AtestadosForm = ({ closeForm }) => {
 							/>
 						</div>
 					)}
+					<div>
+						<p className="font-medium mb-1">Observação:</p>
+						<Input
+							name="observacao"
+							className="bg-indigo-50 w-full px-2 py-1"
+							type="text"
+							value={formData.observacao}
+							onChange={handleChange}
+						/>
+					</div>
 				</div>
 				<button
 					type="submit"
