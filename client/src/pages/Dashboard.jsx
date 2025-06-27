@@ -1,5 +1,5 @@
 import AtestadosManager from "../components/Atestados/AtestadosManager";
-import FaltasForm from "../components/FaltasForm";
+import FaltasManager from "../components/Faltas/FaltasManager";
 import ToastList from "../components/ToastList";
 import { Tabs } from "@base-ui-components/react/tabs";
 import { Toast } from "@base-ui-components/react/toast";
@@ -32,9 +32,7 @@ export const Dashboard = () => (
 				<h2>Funcionários</h2>
 			</Tabs.Panel>
 			<Tabs.Panel value="faltas">
-				<div className="max-w-md mx-auto mt-8">
-					<FaltasForm />
-				</div>
+				<FaltasManager />
 			</Tabs.Panel>
 			<Tabs.Panel value="atestados">
 				<AtestadosManager />

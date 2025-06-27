@@ -31,13 +31,20 @@ class FaltaService {
         }
     }
 
-    async update(id, data) {
+    async update(id, updates) {
         try {
             const updatedFalta = await this.prisma.falta.update({
                 where: {
                     id,
                 },
-                data
+                data: updates,
+                include: {
+                    funcionario: {
+                        select: {
+                            nome: true,
+                        },
+                    }
+                }
             });
 
             return updatedFalta;
@@ -105,7 +112,14 @@ class FaltaService {
             }
 
             const faltas = await this.prisma.falta.findMany({
-                where
+                where,
+                include: {
+                    funcionario: {
+                        select: {
+                            nome: true,
+                        },
+                    }
+                }
             });
 
             return faltas;
