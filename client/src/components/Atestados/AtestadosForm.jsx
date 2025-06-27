@@ -5,8 +5,8 @@ import { useState, useEffect } from "react";
 import {
 	cadastrarAtestado,
 	atualizarAtestado,
-} from "../services/api/atestados";
-import FuncionarioSelect from "./FuncionarioSelect.jsx";
+} from "../../services/api/atestados.js";
+import FuncionarioSelect from "../FuncionarioSelect.jsx";
 
 const initialState = {
 	funcionarioId: "",

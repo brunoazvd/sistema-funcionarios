@@ -1,4 +1,4 @@
-import AtestadosManager from "../components/AtestadosManager";
+import AtestadosManager from "../components/Atestados/AtestadosManager";
 import FaltasForm from "../components/FaltasForm";
 import ToastList from "../components/ToastList";
 import { Tabs } from "@base-ui-components/react/tabs";

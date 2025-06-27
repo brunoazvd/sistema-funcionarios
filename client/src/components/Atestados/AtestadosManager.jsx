@@ -4,7 +4,10 @@ import { Dialog } from "@base-ui-components/react/dialog";
 import AtestadosResults from "./AtestadosResults";
 import AtestadosForm from "./AtestadosForm";
 
-import { deletarAtestado, pesquisarAtestados } from "../services/api/atestados";
+import {
+	deletarAtestado,
+	pesquisarAtestados,
+} from "../../services/api/atestados";
 
 import { useState } from "react";
 

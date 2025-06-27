@@ -1,8 +1,8 @@
-import EditIcon from "./icons/EditIcon.jsx";
-import DeleteIcon from "./icons/DeleteIcon.jsx";
+import EditIcon from "../icons/EditIcon.jsx";
+import DeleteIcon from "../icons/DeleteIcon.jsx";
 import { AlertDialog } from "@base-ui-components/react/alert-dialog";
 import { useState } from "react";
-import { deletarAtestado } from "../services/api/atestados";
+import { deletarAtestado } from "../../services/api/atestados.js";
 
 const AtestadosResults = ({ results, deleteAction, setModalContent }) => {
 	const [deleteId, setDeleteId] = useState(null);
@@ -16,8 +16,8 @@ const AtestadosResults = ({ results, deleteAction, setModalContent }) => {
 							<tr>
 								<th className="p-2 w-2/10">Funcionário</th>
 								<th className="p-2 w-1/10">Data</th>
-								<th className="p-2 w-1/10">Dias</th>
 								<th className="p-2 w-1/10">Tipo</th>
+								<th className="p-2 w-1/10">Dias</th>
 								<th className="p-2 w-2/10">Observação</th>
 								<th className="p-2 w-1/10">Ações</th>
 							</tr>
@@ -37,12 +37,14 @@ const AtestadosResults = ({ results, deleteAction, setModalContent }) => {
 											})}
 										</td>
 										<td className="px-2 py-1">
-											{atestado.dias}
-										</td>
-										<td className="px-2 py-1">
 											{atestado.tipo === "COMPARECIMENTO"
 												? "Comparecimento"
 												: "Atestado Médico"}
+										</td>
+										<td className="px-2 py-1">
+											{atestado.dias === 0
+												? ""
+												: atestado.dias}
 										</td>
 										<td className="px-2 py-1">
 											{atestado.observacao
