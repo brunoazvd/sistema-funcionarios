@@ -38,7 +38,7 @@ async function main() {
     const tipoAtestado = ['COMPARECIMENTO', 'ATESTADO_MEDICO']
     const sexos = ['M', 'F']
 
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 100; i++) {
         const sexo = faker.helpers.arrayElement(sexos)
         const nome = faker.person.fullName({ sex: sexo === 'M' ? 'male' : 'female' })
         const email = faker.internet.email({ firstName: nome.split(' ')[0], lastName: nome.split(' ')[1], provider: 'escola.com' }).toLowerCase()
@@ -52,8 +52,8 @@ async function main() {
                 cpf: randomCPF(),
                 email,
                 telefone: faker.phone.number('(##) 9####-####'),
-                dataNascimento: fixDate(faker.date.birthdate({ min: 25, max: 60, mode: 'age' })),
-                dataAdmissao: fixDate(faker.date.past({ years: 10 })),
+                dataNascimento: fixDate(faker.date.birthdate({ min: 18, max: 60, mode: 'age' })),
+                dataAdmissao: fixDate(faker.date.past({ years: 4 })),
                 tipoContrato: faker.helpers.arrayElement(tipoContrato)
             }
         })
@@ -63,7 +63,7 @@ async function main() {
         const numFaltas = getRandomInt(0, 5)
 
         for (let j = 0; j < numFaltas; j++) {
-            const dataFalta = randomDateInPastMonth()
+            const dataFalta = fixDate(faker.date.past({ years: 1 }))
             if (faltaDatas.has(dataFalta)) continue
             faltaDatas.add(dataFalta)
 
@@ -78,8 +78,8 @@ async function main() {
             faltas.push({ falta, data: dataFalta })
         }
 
-        // Adicionar até 2 atestados em faltas aleatórias
-        const faltasComAtestado = getRandomInt(0, Math.min(2, faltas.length))
+        // Adicionar até 3 atestados em faltas aleatórias
+        const faltasComAtestado = getRandomInt(0, Math.min(3, faltas.length))
         const usadas = new Set()
         for (let k = 0; k < faltasComAtestado; k++) {
             let index
@@ -88,13 +88,15 @@ async function main() {
             } while (usadas.has(index))
             usadas.add(index)
 
+            const randomTipo = faker.helpers.arrayElement(tipoAtestado);
+
             await prisma.atestado.create({
                 data: {
                     funcionarioId: funcionario.id,
                     data: new Date(faltas[index].data),
-                    dias: getRandomInt(1, 3),
-                    tipo: faker.helpers.arrayElement(tipoAtestado),
-                    observacao: Math.random() > 0.5 ? faker.lorem.words(3) : null
+                    dias: randomTipo === "ATESTADO_MEDICO" ? getRandomInt(1, 5) : 0,
+                    tipo: randomTipo,
+                    observacao: Math.random() > 0.3 ? faker.lorem.words(3) : null
                 }
             })
         }

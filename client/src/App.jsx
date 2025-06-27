@@ -10,7 +10,7 @@ export const App = () => (
 		<FuncionariosProvider>
 			<Toast.Provider>
 				<Suspense fallback={<Loading name="suspense" />}>
-					<div className="h-full bg-indigo-950 text-indigo-50">
+					<div className="min-h-screen bg-indigo-950 text-indigo-50 pb-8">
 						<Router />
 					</div>
 				</Suspense>

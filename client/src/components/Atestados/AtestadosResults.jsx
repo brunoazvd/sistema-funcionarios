@@ -2,7 +2,6 @@ import EditIcon from "../icons/EditIcon.jsx";
 import DeleteIcon from "../icons/DeleteIcon.jsx";
 import { AlertDialog } from "@base-ui-components/react/alert-dialog";
 import { useState } from "react";
-import { deletarAtestado } from "../../services/api/atestados.js";
 
 const AtestadosResults = ({ results, deleteAction, setModalContent }) => {
 	const [deleteId, setDeleteId] = useState(null);

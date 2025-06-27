@@ -30,12 +30,8 @@ class AtestadoService {
 
     async update(id, updates) {
         try {
-            console.log(id)
-            console.log(updates)
             const updatedAtestado = await this.prisma.atestado.update({
-                where: {
-                    id: id
-                },
+                where: { id },
                 data: updates,
                 include: {
                     funcionario: {
