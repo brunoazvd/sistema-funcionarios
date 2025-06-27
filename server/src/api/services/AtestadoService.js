@@ -10,7 +10,6 @@ class AtestadoService {
             const newAtestado = await this.prisma.atestado.create({
                 data
             });
-
             return newAtestado;
         } catch (error) {
             throw new Error(`Erro ao criar atestado: ${error.message}`);
@@ -97,7 +96,14 @@ class AtestadoService {
             }
 
             const atestados = await this.prisma.atestado.findMany({
-                where
+                where,
+                include: {
+                    funcionario: {
+                        select: {
+                            nome: true,
+                        },
+                    }
+                }
             });
 
             return atestados;

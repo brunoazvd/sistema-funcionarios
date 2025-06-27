@@ -1,19 +1,35 @@
 import { Input } from "@base-ui-components/react/input";
 import { Toast } from "@base-ui-components/react/toast";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-import { cadastrarAtestado } from "../services/api/atestados";
+import {
+	cadastrarAtestado,
+	atualizarAtestado,
+} from "../services/api/atestados";
 import FuncionarioSelect from "./FuncionarioSelect.jsx";
 
-const AtestadosForm = ({ closeForm }) => {
-	const [formData, setFormData] = useState({
-		funcionarioId: "",
-		data: "",
-		dias: "0",
-		tipo: "",
-		observacao: "",
-	});
+const initialState = {
+	funcionarioId: "",
+	data: "",
+	dias: "0",
+	tipo: "",
+	observacao: "",
+};
+
+function formatISOToDateOnly(isoString) {
+	const date = new Date(isoString);
+	const year = date.getUTCFullYear();
+	const month = String(date.getUTCMonth() + 1).padStart(2, "0");
+	const day = String(date.getUTCDate()).padStart(2, "0");
+
+	return `${year}-${month}-${day}`;
+}
+
+const AtestadosForm = ({ closeModal, currentAtestado, clearAtestado }) => {
+	const [formData, setFormData] = useState(initialState);
 	const toastManager = Toast.useToastManager();
+
+	console.log(currentAtestado);
 
 	const handleChange = (event) => {
 		const { name, value } = event.target;
@@ -25,24 +41,58 @@ const AtestadosForm = ({ closeForm }) => {
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
-		const atestado = await cadastrarAtestado({
-			funcionarioId: Number(formData.funcionarioId),
-			data: new Date(formData.data),
-			dias: Number(formData.dias),
-			tipo: formData.tipo,
-		});
-		toastManager.add({
-			title: "Atestado cadastrado com sucesso!",
-			duration: 3000,
-		});
-		closeForm();
+
+		if (currentAtestado === null) {
+			const atestado = await cadastrarAtestado({
+				funcionarioId: Number(formData.funcionarioId),
+				data: new Date(formData.data),
+				dias: Number(formData.dias),
+				tipo: formData.tipo,
+				observacao: formData.observacao || null,
+			});
+			toastManager.add({
+				title: "Atestado cadastrado com sucesso!",
+				duration: 3000,
+			});
+		} else {
+			const atestado = await atualizarAtestado(currentAtestado.id, {
+				funcionarioId: Number(formData.funcionarioId),
+				data: formData.data,
+				dias: Number(formData.dias),
+				tipo: formData.tipo,
+				observacao: formData.observacao || null,
+			});
+			clearAtestado();
+			toastManager.add({
+				title: "Atestado atualizado com sucesso!",
+				duration: 3000,
+			});
+		}
+
+		closeModal();
 	};
+
+	useEffect(() => {
+		if (currentAtestado !== null) {
+			setFormData({
+				funcionarioId: currentAtestado.funcionarioId,
+				data: formatISOToDateOnly(currentAtestado.data),
+				dias: currentAtestado.dias,
+				tipo: currentAtestado.tipo,
+				observacao: currentAtestado.observacao
+					? currentAtestado.observacao
+					: "",
+			});
+		} else {
+			setFormData(initialState);
+		}
+	}, [currentAtestado]);
 
 	return (
 		<>
 			<form className="w-full" onSubmit={handleSubmit}>
 				<p className="text-center text-xl -mt-1.5 mb-3 font-bold tracking-wide">
-					Cadastrar Novo Atestado
+					{currentAtestado ? "Editar Atestado" : "Cadastrar Atestado"}
 				</p>
 				<div className="flex flex-col gap-3 mb-6">
 					<div>
@@ -113,7 +163,7 @@ const AtestadosForm = ({ closeForm }) => {
 					type="submit"
 					className="bg-indigo-300 hover:bg-indigo-400 py-2 w-full"
 				>
-					Cadastrar
+					{currentAtestado ? "Editar" : "Cadastrar"}
 				</button>
 			</form>
 		</>

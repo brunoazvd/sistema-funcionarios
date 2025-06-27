@@ -1,7 +1,7 @@
 import { Input } from "@base-ui-components/react/input";
 import { Dialog } from "@base-ui-components/react/dialog";
 
-import ResultList from "./ResultList";
+import AtestadosResults from "./AtestadosResults";
 import AtestadosForm from "./AtestadosForm";
 
 import { pesquisarAtestados } from "../services/api/atestados";
@@ -17,7 +17,8 @@ const initialState = {
 const AtestadosManager = () => {
 	const [formData, setFormData] = useState(initialState);
 	const [results, setResults] = useState([]);
-	const [formOpen, setFormOpen] = useState(false);
+	const [modalOpen, setModalOpen] = useState(false);
+	const [currentAtestado, setCurrentAtestado] = useState(null);
 
 	const handleChange = (event) => {
 		const { name, value } = event.target;
@@ -30,8 +31,7 @@ const AtestadosManager = () => {
 	const handleSubmit = async (event) => {
 		event.preventDefault();
 		const resultados = await pesquisarAtestados(formData);
-		console.log(resultados);
-		// TODO: Enviar formulário para o servidor
+		setResults(resultados);
 	};
 
 	return (
@@ -42,7 +42,7 @@ const AtestadosManager = () => {
 					onSubmit={handleSubmit}
 				>
 					<div>
-						<p className="mb-1">Funcionário:</p>
+						<p className="font-bold mb-1">Funcionário:</p>
 						<Input
 							name="funcionario"
 							className="bg-indigo-50 w-full min-w-64 px-2 py-1 text-black"
@@ -52,36 +52,36 @@ const AtestadosManager = () => {
 						/>
 					</div>
 					<div>
-						<p className="mb-1">Data Inicial:</p>
+						<p className="font-bold mb-1">Data Inicial:</p>
 						<Input
 							name="dataInicial"
 							className="bg-indigo-50 w-full px-2 py-1 text-black"
 							type="date"
-							value={formData.minDate}
+							value={formData.dataInicial}
 							onChange={handleChange}
 						/>
 					</div>
 					<div>
-						<p className="mb-1">Data Final:</p>
+						<p className="font-bold mb-1">Data Final:</p>
 						<Input
 							name="dataFinal"
 							className="bg-indigo-50 w-full px-2 py-1 text-black"
 							type="date"
-							value={formData.maxDate}
+							value={formData.dataFinal}
 							onChange={handleChange}
 						/>
 					</div>
 					<button
-						className="bg-indigo-400 hover:bg-indigo-500 px-3 h-8 mt-auto"
+						className="bg-indigo-500 hover:bg-indigo-600 px-3 h-8 mt-auto"
 						type="submit"
 					>
 						Pesquisar
 					</button>
 				</form>
 				<div className="flex flex-row gap-3 w-full px-6">
-					<Dialog.Root open={formOpen} onOpenChange={setFormOpen}>
+					<Dialog.Root open={modalOpen} onOpenChange={setModalOpen}>
 						<Dialog.Trigger
-							className="bg-indigo-400 hover:bg-indigo-500 px-3 h-8 mt-auto ml-auto"
+							className="bg-indigo-500 hover:bg-indigo-600 px-3 h-8 mt-auto ml-auto"
 							type="button"
 						>
 							Cadastrar Atestado
@@ -90,24 +90,26 @@ const AtestadosManager = () => {
 							<Dialog.Backdrop className="fixed inset-0 bg-black opacity-20 transition-all duration-150 data-[ending-style]:opacity-0 data-[starting-style]:opacity-0 dark:opacity-50" />
 							<Dialog.Popup className="fixed top-1/2 left-1/2 -mt-8 min-w-md max-w-[calc(100vw-3rem)] -translate-x-1/2 -translate-y-1/2 rounded-lg bg-indigo-100 p-6 text-black outline outline-indigo-200 transition-all duration-150 data-[ending-style]:scale-90 data-[ending-style]:opacity-0 data-[starting-style]:scale-90 data-[starting-style]:opacity-0">
 								<AtestadosForm
-									closeForm={() => setFormOpen(false)}
+									closeModal={() => setModalOpen(false)}
+									currentAtestado={currentAtestado}
+									clearAtestado={() =>
+										setCurrentAtestado(null)
+									}
 								/>
 							</Dialog.Popup>
 						</Dialog.Portal>
 					</Dialog.Root>
 				</div>
 			</div>
-			{results &&
-				results.map((atestado, index) => {
-					return (
-						<div key={index}>
-							<p>{atestado.funcionario.nome}</p>
-							<p>{atestado.data}</p>
-							<p>{atestado.dias}</p>
-							<p>{atestado.tipo}</p>
-						</div>
-					);
-				})}
+			{results && (
+				<AtestadosResults
+					results={results}
+					setModalContent={(atestado) => {
+						setCurrentAtestado(atestado);
+						setModalOpen(true);
+					}}
+				/>
+			)}
 		</>
 	);
 };
