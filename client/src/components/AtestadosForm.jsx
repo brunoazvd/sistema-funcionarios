@@ -25,7 +25,13 @@ function formatISOToDateOnly(isoString) {
 	return `${year}-${month}-${day}`;
 }
 
-const AtestadosForm = ({ closeModal, currentAtestado, clearAtestado }) => {
+const AtestadosForm = ({
+	closeModal,
+	currentAtestado,
+	clearAtestado,
+	updateAction,
+	clearResults,
+}) => {
 	const [formData, setFormData] = useState(initialState);
 	const toastManager = Toast.useToastManager();
 
@@ -52,6 +58,7 @@ const AtestadosForm = ({ closeModal, currentAtestado, clearAtestado }) => {
 				title: "Atestado cadastrado com sucesso!",
 				duration: 3000,
 			});
+			clearResults();
 		} else {
 			const atestado = await atualizarAtestado(currentAtestado.id, {
 				funcionarioId: Number(formData.funcionarioId),
@@ -61,12 +68,12 @@ const AtestadosForm = ({ closeModal, currentAtestado, clearAtestado }) => {
 				observacao: formData.observacao || null,
 			});
 			clearAtestado();
+			updateAction(atestado);
 			toastManager.add({
 				title: "Atestado atualizado com sucesso!",
 				duration: 3000,
 			});
 		}
-
 		closeModal();
 	};
 

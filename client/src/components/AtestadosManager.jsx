@@ -26,6 +26,15 @@ const AtestadosManager = () => {
 		setResults((prev) => prev.filter((item) => item.id !== id));
 	};
 
+	const updateAction = async (updatedAtestado) => {
+		if (!updatedAtestado) return;
+		setResults((prev) =>
+			prev.map((item) =>
+				item.id === updatedAtestado.id ? updatedAtestado : item
+			)
+		);
+	};
+
 	const handleChange = (event) => {
 		const { name, value } = event.target;
 		setFormData({
@@ -101,6 +110,8 @@ const AtestadosManager = () => {
 									clearAtestado={() =>
 										setCurrentAtestado(null)
 									}
+									updateAction={updateAction}
+									clearResults={() => setResults([])}
 								/>
 							</Dialog.Popup>
 						</Dialog.Portal>

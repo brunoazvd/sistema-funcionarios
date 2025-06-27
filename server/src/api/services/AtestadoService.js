@@ -36,7 +36,14 @@ class AtestadoService {
                 where: {
                     id: id
                 },
-                data: updates
+                data: updates,
+                include: {
+                    funcionario: {
+                        select: {
+                            nome: true,
+                        },
+                    }
+                }
             });
 
             return updatedAtestado;
