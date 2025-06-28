@@ -44,3 +44,7 @@ export const buscarTodosFuncionarios = async () => {
         throw new Error(`Erro ao buscar funcionários: ${error.message}`);
     }
 }
+
+export const pesquisarFuncionarios = async () => {
+    return [] // need to implement API endpoint
+}

@@ -4,7 +4,8 @@ import { useState, useEffect } from "react";
 
 import { cadastrarFalta, atualizarFalta } from "../../services/api/faltas.js";
 
-import FuncionarioSelect from "../FuncionarioSelect.jsx";
+import { formatISOToDateOnly } from "../../helpers/date.js";
+
 import FuncionarioAutocomplete from "../FuncionarioAutocomplete.jsx";
 
 const initialState = {
@@ -12,15 +13,6 @@ const initialState = {
 	data: "",
 	observacao: "",
 };
-
-function formatISOToDateOnly(isoString) {
-	const date = new Date(isoString);
-	const year = date.getUTCFullYear();
-	const month = String(date.getUTCMonth() + 1).padStart(2, "0");
-	const day = String(date.getUTCDate()).padStart(2, "0");
-
-	return `${year}-${month}-${day}`;
-}
 
 const FaltasForm = ({
 	closeModal,

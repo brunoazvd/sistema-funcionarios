@@ -1,5 +1,6 @@
 import AtestadosManager from "../components/Atestados/AtestadosManager";
 import FaltasManager from "../components/Faltas/FaltasManager";
+import FuncionariosManager from "../components/Funcionarios/FuncionariosManager";
 import ToastList from "../components/ToastList";
 import { Tabs } from "@base-ui-components/react/tabs";
 import { Toast } from "@base-ui-components/react/toast";
@@ -29,7 +30,7 @@ export const Dashboard = () => (
 				<Tabs.Indicator className="absolute top-1/2 left-0 z-[-1] h-8 w-[var(--active-tab-width)] -translate-y-1/2 translate-x-[var(--active-tab-left)] bg-indigo-50 transition-all duration-400 ease-in-out" />
 			</Tabs.List>
 			<Tabs.Panel value="funcionarios">
-				<h2>Funcionários</h2>
+				<FuncionariosManager />
 			</Tabs.Panel>
 			<Tabs.Panel value="faltas">
 				<FaltasManager />

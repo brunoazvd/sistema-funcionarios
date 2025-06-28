@@ -65,7 +65,7 @@ const FuncionarioAutocomplete = ({
 
 			setFilteredFuncionarios(filtered);
 			setShowDropdown(true);
-		}, 300); // 300ms de debounce
+		}, 300);
 
 		return () => {
 			if (debounceTimeout.current) {
