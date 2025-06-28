@@ -7,6 +7,7 @@ import {
 	atualizarAtestado,
 } from "../../services/api/atestados.js";
 import FuncionarioSelect from "../FuncionarioSelect.jsx";
+import FuncionarioAutocomplete from "../FuncionarioAutocomplete.jsx";
 
 const initialState = {
 	funcionarioId: "",
@@ -102,12 +103,12 @@ const AtestadosForm = ({
 				<div className="flex flex-col gap-3 mb-6">
 					<div>
 						<p className="font-medium mb-1">Funcionário:</p>
-						<FuncionarioSelect
+						<FuncionarioAutocomplete
 							name="funcionarioId"
 							value={formData.funcionarioId}
 							onChange={handleChange}
 							required
-							placeholder="Selecione um funcionário"
+							placeholder="Pesquise um funcionário"
 						/>
 					</div>
 					<div>
