@@ -176,7 +176,7 @@ const FuncionariosForm = ({
 								name="dataNascimento"
 								className="bg-indigo-50 w-full px-2 py-1"
 								type="date"
-								value={formData.data}
+								value={formData.dataNascimento}
 								onChange={handleChange}
 								required
 							/>
@@ -189,7 +189,7 @@ const FuncionariosForm = ({
 								name="dataAdmissao"
 								className="bg-indigo-50 w-full px-2 py-1"
 								type="date"
-								value={formData.data}
+								value={formData.dataAdmissao}
 								onChange={handleChange}
 								required
 							/>
