@@ -23,11 +23,10 @@ const FuncionariosManager = () => {
 	const [modalOpen, setModalOpen] = useState(false);
 	const [currentFuncionario, setCurrentFuncionario] = useState(null);
 
-	console.log(formData);
+	console.log(results);
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
-		return; // to be implemented - need to create new API endpoint
 		const resultados = await pesquisarFuncionarios(formData);
 		setResults(resultados);
 	};
@@ -38,11 +37,6 @@ const FuncionariosManager = () => {
 			...formData,
 			[name]: value,
 		});
-	};
-
-	const updateAction = () => {
-		// to be implemented
-		return null;
 	};
 
 	return (
@@ -94,7 +88,6 @@ const FuncionariosManager = () => {
 									clearFuncionario={() =>
 										setCurrentFuncionario(null)
 									}
-									updateAction={updateAction}
 									clearResults={() => setResults([])}
 								/>
 							</Dialog.Popup>

@@ -58,6 +58,30 @@ class FuncionarioService {
             throw new Error(`Erro ao buscar funcionário: ${error.message}`);
         }
     }
+
+    async search(nome, cargo) {
+        try {
+            const where = {};
+            if (nome) {
+                where.nome = {
+                    contains: nome,
+                };
+            }
+            if (cargo) {
+                where.cargo = cargo;
+            }
+            if (Object.keys(where).length === 0) {
+                return [];
+            }
+            const funcionarios = await prisma.funcionario.findMany({
+                where,
+            });
+            return funcionarios;
+        } catch (error) {
+            throw new Error(`Erro ao buscar funcionários: ${error.message}`);
+        }
+    }
+
 }
 
 const service = new FuncionarioService();

@@ -6,7 +6,10 @@ import CargoSelect from "../selects/CargoSelect.jsx";
 import SexoSelect from "../selects/SexoSelect.jsx";
 import TipoContratoSelect from "../selects/TipoContratoSelect.jsx";
 
-import { cadastrarFalta, atualizarFalta } from "../../services/api/faltas.js";
+import {
+	cadastrarFuncionario,
+	atualizarFuncionario,
+} from "../../services/api/funcionarios.js";
 
 import { formatISOToDateOnly } from "../../helpers/date.js";
 
@@ -26,13 +29,10 @@ const FuncionariosForm = ({
 	closeModal,
 	currentFuncionario,
 	clearFuncionario,
-	updateAction,
 	clearResults,
 }) => {
 	const [formData, setFormData] = useState(initialState);
 	const toastManager = Toast.useToastManager();
-
-	console.log(formData);
 
 	const handleChange = (event) => {
 		const { name, value } = event.target;
@@ -44,7 +44,45 @@ const FuncionariosForm = ({
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
-		console.log("submitted"); // to be implemented
+		if (currentFuncionario === null) {
+			const funcionario = await cadastrarFuncionario({
+				nome: formData.nome,
+				cargo: formData.cargo,
+				sexo: formData.sexo,
+				cpf: formData.cpf,
+				dataNascimento: new Date(formData.dataNascimento),
+				dataAdmissao: new Date(formData.dataAdmissao),
+				email: formData.email,
+				telefone: formData.telefone,
+				tipoContrato: formData.tipoContrato,
+			});
+			toastManager.add({
+				title: "Funcionário cadastrado com sucesso!",
+				duration: 3000,
+			});
+		} else {
+			const funcionario = await atualizarFuncionario(
+				currentFuncionario.id,
+				{
+					nome: formData.nome,
+					cargo: formData.cargo,
+					sexo: formData.sexo,
+					cpf: formData.cpf,
+					dataNascimento: new Date(formData.dataNascimento),
+					dataAdmissao: new Date(formData.dataAdmissao),
+					email: formData.email,
+					telefone: formData.telefone,
+					tipoContrato: formData.tipoContrato,
+				}
+			);
+			clearFuncionario();
+			toastManager.add({
+				title: "Funcionário atualizado com sucesso!",
+				duration: 3000,
+			});
+		}
+		clearResults();
+		closeModal();
 	};
 
 	useEffect(() => {

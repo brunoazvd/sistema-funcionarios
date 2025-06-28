@@ -18,6 +18,7 @@ router.put("/api/funcionarios/:id", FuncionarioController.atualizarFuncionario);
 router.delete("/api/funcionarios/:id", FuncionarioController.deletarFuncionario);
 router.get("/api/funcionarios/id/:id", FuncionarioController.buscarPorId);
 router.get("/api/funcionarios", FuncionarioController.buscarTodos);
+router.post("/api/funcionarios/pesquisar", FuncionarioController.pesquisar);
 
 // Faltas
 router.post("/api/faltas/novo", FaltaController.criarFalta);

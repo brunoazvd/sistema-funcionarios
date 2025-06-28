@@ -45,6 +45,11 @@ export const buscarTodosFuncionarios = async () => {
     }
 }
 
-export const pesquisarFuncionarios = async () => {
-    return [] // need to implement API endpoint
+export const pesquisarFuncionarios = async (data) => {
+    try {
+        const response = await api.post('/api/funcionarios/pesquisar', data);
+        return response.data;
+    } catch (error) {
+        throw new Error(`Erro ao pesquisar funcionários: ${error.message}`);
+    }
 }
