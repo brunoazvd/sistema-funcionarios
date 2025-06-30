@@ -16,6 +16,8 @@ export const cargos = [
 	["VIGIA", "Vigia"],
 ];
 
+export const cargosMap = new Map(cargos);
+
 export const sexos = [
 	["F", "Feminino"],
 	["M", "Masculino"],

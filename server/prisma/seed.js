@@ -21,6 +21,10 @@ function randomCPF() {
     return faker.helpers.replaceSymbols('###########')
 }
 
+function randomTelefone() {
+    return `${Math.random() > 0.7 ? "21" : "22"}${faker.helpers.replaceSymbols("9########")}`
+}
+
 function fixDate(date) {
     const d = new Date(date)
     d.setUTCHours(0, 0, 0, 0)
@@ -51,7 +55,7 @@ async function main() {
                 sexo,
                 cpf: randomCPF(),
                 email,
-                telefone: faker.phone.number('(##) 9####-####'),
+                telefone: randomTelefone(),
                 dataNascimento: fixDate(faker.date.birthdate({ min: 18, max: 60, mode: 'age' })),
                 dataAdmissao: fixDate(faker.date.past({ years: 3 })),
                 tipoContrato: faker.helpers.arrayElement(tipoContrato)

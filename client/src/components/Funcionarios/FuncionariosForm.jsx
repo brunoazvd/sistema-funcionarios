@@ -34,6 +34,7 @@ const FuncionariosForm = ({
 	currentFuncionario,
 	clearFuncionario,
 	clearResults,
+	updateAction,
 }) => {
 	const [formData, setFormData] = useState(initialState);
 	const toastManager = Toast.useToastManager();
@@ -82,6 +83,7 @@ const FuncionariosForm = ({
 				title: "Funcionário cadastrado com sucesso!",
 				duration: 3000,
 			});
+			clearResults();
 		} else {
 			const funcionario = await atualizarFuncionario(
 				currentFuncionario.id,
@@ -98,12 +100,12 @@ const FuncionariosForm = ({
 				}
 			);
 			clearFuncionario();
+			updateAction(funcionario);
 			toastManager.add({
 				title: "Funcionário atualizado com sucesso!",
 				duration: 3000,
 			});
 		}
-		clearResults();
 		closeModal();
 	};
 

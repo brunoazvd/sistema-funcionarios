@@ -3,6 +3,7 @@ import { Dialog } from "@base-ui-components/react/dialog";
 
 import FuncionariosResults from "./FuncionariosResults";
 import FuncionariosForm from "./FuncionariosForm";
+import FuncionarioDetalhes from "./FuncionarioDetalhes.jsx";
 import CargoSelect from "../selects/CargoSelect.jsx";
 
 import {
@@ -21,9 +22,28 @@ const FuncionariosManager = () => {
 	const [formData, setFormData] = useState(initialState);
 	const [results, setResults] = useState([]);
 	const [modalOpen, setModalOpen] = useState(false);
+	const [detailsOpen, setDetailsOpen] = useState(false);
 	const [currentFuncionario, setCurrentFuncionario] = useState(null);
 
-	console.log(results);
+	const deleteAction = async (id) => {
+		if (!id) return;
+		await deletarFuncionario(id);
+		setResults((prev) => prev.filter((item) => item.id !== id));
+	};
+
+	const updateAction = async (updatedFuncionario) => {
+		if (!updatedFuncionario) return;
+		setResults((prev) =>
+			prev.map((item) =>
+				item.id === updatedFuncionario.id ? updatedFuncionario : item
+			)
+		);
+	};
+
+	const handleViewDetails = async (funcionario) => {
+		setCurrentFuncionario(funcionario);
+		setDetailsOpen(true);
+	};
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
@@ -88,6 +108,7 @@ const FuncionariosManager = () => {
 									clearFuncionario={() =>
 										setCurrentFuncionario(null)
 									}
+									updateAction={updateAction}
 									clearResults={() => setResults([])}
 								/>
 							</Dialog.Popup>
@@ -95,6 +116,25 @@ const FuncionariosManager = () => {
 					</Dialog.Root>
 				</div>
 			</div>
+			{results && (
+				<FuncionariosResults
+					results={results}
+					deleteAction={deleteAction}
+					setModalContent={(funcionario) => {
+						setCurrentFuncionario(funcionario);
+						setModalOpen(true);
+					}}
+					handleViewDetails={handleViewDetails}
+				/>
+			)}
+			{currentFuncionario && (
+				<FuncionarioDetalhes
+					funcionarioId={currentFuncionario.id}
+					funcionarioNome={currentFuncionario.nome}
+					isOpen={detailsOpen}
+					onClose={() => setDetailsOpen(false)}
+				/>
+			)}
 		</>
 	);
 };

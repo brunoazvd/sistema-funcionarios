@@ -40,7 +40,7 @@ export const Dashboard = () => (
 			</Tabs.Panel>
 		</Tabs.Root>
 		<Toast.Portal>
-			<Toast.Viewport className="fixed top-auto right-[1rem] bottom-[1rem] mx-auto flex w-[250px] sm:right-[2rem] sm:bottom-[2rem] sm:w-[300px]">
+			<Toast.Viewport className="fixed top-auto right-[1rem] bottom-[1rem] mx-auto flex w-[280px] sm:right-[2rem] sm:bottom-[2rem] sm:w-[320px]">
 				<ToastList />
 			</Toast.Viewport>
 		</Toast.Portal>
