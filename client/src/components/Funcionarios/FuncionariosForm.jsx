@@ -11,7 +11,11 @@ import {
 	atualizarFuncionario,
 } from "../../services/api/funcionarios.js";
 
-import { formatISOToDateOnly } from "../../helpers/date.js";
+import {
+	formatISOToDateOnly,
+	formatTelefone,
+	formatCPF,
+} from "../../helpers/format.js";
 
 const initialState = {
 	nome: "",
@@ -36,24 +40,42 @@ const FuncionariosForm = ({
 
 	const handleChange = (event) => {
 		const { name, value } = event.target;
-		setFormData({
-			...formData,
-			[name]: value,
-		});
+		if (name === "telefone") {
+			setFormData({
+				...formData,
+				[name]: formatTelefone(value),
+			});
+			return;
+		} else if (name === "cpf") {
+			setFormData({
+				...formData,
+				[name]: formatCPF(value),
+			});
+			return;
+		} else {
+			setFormData({
+				...formData,
+				[name]: value,
+			});
+		}
 	};
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
+
+		const telefoneFormatado = formData.telefone.replace(/\D/g, "");
+		const cpfFormatado = formData.cpf.replace(/\D/g, "");
+
 		if (currentFuncionario === null) {
 			const funcionario = await cadastrarFuncionario({
 				nome: formData.nome,
 				cargo: formData.cargo,
 				sexo: formData.sexo,
-				cpf: formData.cpf,
+				cpf: cpfFormatado,
 				dataNascimento: new Date(formData.dataNascimento),
 				dataAdmissao: new Date(formData.dataAdmissao),
 				email: formData.email,
-				telefone: formData.telefone,
+				telefone: telefoneFormatado,
 				tipoContrato: formData.tipoContrato,
 			});
 			toastManager.add({
@@ -67,11 +89,11 @@ const FuncionariosForm = ({
 					nome: formData.nome,
 					cargo: formData.cargo,
 					sexo: formData.sexo,
-					cpf: formData.cpf,
+					cpf: cpfFormatado,
 					dataNascimento: new Date(formData.dataNascimento),
 					dataAdmissao: new Date(formData.dataAdmissao),
 					email: formData.email,
-					telefone: formData.telefone,
+					telefone: telefoneFormatado,
 					tipoContrato: formData.tipoContrato,
 				}
 			);
@@ -87,6 +109,10 @@ const FuncionariosForm = ({
 
 	useEffect(() => {
 		if (currentFuncionario !== null) {
+			const telefoneFormatado = currentFuncionario.telefone
+				? formatTelefone(currentFuncionario.telefone)
+				: "";
+
 			setFormData({
 				nome: currentFuncionario.nome,
 				cargo: currentFuncionario.cargo,
@@ -99,7 +125,7 @@ const FuncionariosForm = ({
 					currentFuncionario.dataAdmissao
 				),
 				email: currentFuncionario.email,
-				telefone: currentFuncionario.telefone,
+				telefone: telefoneFormatado,
 				tipoContrato: currentFuncionario.tipoContrato,
 			});
 		} else {

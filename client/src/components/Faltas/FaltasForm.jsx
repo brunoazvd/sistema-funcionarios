@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 
 import { cadastrarFalta, atualizarFalta } from "../../services/api/faltas.js";
 
-import { formatISOToDateOnly } from "../../helpers/date.js";
+import { formatISOToDateOnly } from "../../helpers/format.js";
 
 import FuncionarioAutocomplete from "../FuncionarioAutocomplete.jsx";
 

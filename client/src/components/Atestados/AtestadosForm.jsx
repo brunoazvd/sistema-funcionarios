@@ -7,7 +7,7 @@ import {
 	atualizarAtestado,
 } from "../../services/api/atestados.js";
 
-import { formatISOToDateOnly } from "../../helpers/date.js";
+import { formatISOToDateOnly } from "../../helpers/format.js";
 
 import FuncionarioAutocomplete from "../FuncionarioAutocomplete.jsx";
 

@@ -38,10 +38,10 @@ async function main() {
     const tipoAtestado = ['COMPARECIMENTO', 'ATESTADO_MEDICO']
     const sexos = ['M', 'F']
 
-    for (let i = 0; i < 100; i++) {
+    for (let i = 0; i < 200; i++) {
         const sexo = faker.helpers.arrayElement(sexos)
-        const nome = faker.person.fullName({ sex: sexo === 'M' ? 'male' : 'female' })
-        const email = faker.internet.email({ firstName: nome.split(' ')[0], lastName: nome.split(' ')[1], provider: 'escola.com' }).toLowerCase()
+        const nome = `${faker.person.firstName({ sex: sexo === 'M' ? 'male' : 'female' })} ${faker.person.lastName()} ${faker.person.lastName()}`
+        const email = faker.internet.email({ firstName: nome.split(' ')[0], lastName: `${nome.split(' ')[1]}${getRandomInt(1, 99)}`, provider: `${Math.random() > 0.5 ? 'escola.com' : 'gmail.com'}` }).toLowerCase()
 
         const funcionario = await prisma.funcionario.create({
             data: {
@@ -53,7 +53,7 @@ async function main() {
                 email,
                 telefone: faker.phone.number('(##) 9####-####'),
                 dataNascimento: fixDate(faker.date.birthdate({ min: 18, max: 60, mode: 'age' })),
-                dataAdmissao: fixDate(faker.date.past({ years: 4 })),
+                dataAdmissao: fixDate(faker.date.past({ years: 3 })),
                 tipoContrato: faker.helpers.arrayElement(tipoContrato)
             }
         })
