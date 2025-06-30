@@ -99,11 +99,11 @@ const FuncionariosResults = ({
 								Você não pode desfazer esta ação!
 							</AlertDialog.Description>
 							<div className="flex justify-end gap-3">
-								<AlertDialog.Close className="rounded-md bg-indigo-50 px-4 py-2 font-medium text-indigo-900 hover:bg-indigo-100">
+								<AlertDialog.Close className="flex h-8 items-center justify-center bg-gray-50 px-3.5 text-base font-medium text-gray-900 select-none hover:bg-gray-200 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 active:bg-gray-100">
 									Cancelar
 								</AlertDialog.Close>
 								<AlertDialog.Close
-									className="rounded-md bg-red-500 px-4 py-2 font-medium text-white hover:bg-red-600"
+									className="flex h-8 items-center justify-center text-red-800 bg-gray-50 px-3.5 text-base font-medium hover:text-gray-900 hover:bg-red-400 focus-visible:-outline-offset-1 focus-visible:outline-red-800 active:bg-gray-100"
 									onClick={() => deleteAction(deleteId)}
 								>
 									Excluir
