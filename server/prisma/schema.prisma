@@ -60,7 +60,7 @@ model Funcionario {
 
 model Atestado {
     id            Int          @id @default(autoincrement())
-    funcionario   Funcionario  @relation(fields: [funcionarioId], references: [id])
+    funcionario   Funcionario  @relation(fields: [funcionarioId], references: [id], onDelete: Cascade)
     funcionarioId Int
     data          DateTime
     dias          Int          @default(1)
@@ -71,7 +71,7 @@ model Atestado {
 
 model Falta {
     id            Int         @id @default(autoincrement())
-    funcionario   Funcionario @relation(fields: [funcionarioId], references: [id])
+    funcionario   Funcionario @relation(fields: [funcionarioId], references: [id], onDelete: Cascade)
     funcionarioId Int
     data          DateTime
     observacao    String?

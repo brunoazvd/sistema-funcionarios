@@ -8,8 +8,8 @@ const CargoSelect = ({ value, handleChange, name }) => {
 			value={value}
 			onChange={handleChange}
 		>
-			<option disabled value="" className="text-gray-500">
-				Selecione
+			<option value="" className="text-gray-500">
+				{value !== "" ? "Remover Filtro" : "Selecione um Cargo"}
 			</option>
 			{cargos.map((cargo, index) => {
 				return (
