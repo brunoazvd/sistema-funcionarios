@@ -85,13 +85,13 @@ const FuncionarioDetalhes = ({
 			<Dialog.Root open={isOpen} onOpenChange={onClose}>
 				<Dialog.Portal>
 					<Dialog.Backdrop className="fixed inset-0 bg-black opacity-20 transition-all duration-150 data-[ending-style]:opacity-0 data-[starting-style]:opacity-0 dark:opacity-50" />
-					<Dialog.Popup className="fixed top-1/2 left-1/2 -mt-8 md:min-w-2xl min-w-md max-w-[calc(100vw-3rem)] -translate-x-1/2 -translate-y-1/2 rounded-lg bg-indigo-100 p-6 text-black outline outline-indigo-200 transition-all duration-150 data-[ending-style]:scale-90 data-[ending-style]:opacity-0 data-[starting-style]:scale-90 data-[starting-style]:opacity-0">
+					<Dialog.Popup className="fixed top-1/2 left-1/2 -mt-8 md:min-w-2xl min-w-md max-w-[calc(100vw-3rem)] -translate-x-1/2 -translate-y-1/2 bg-indigo-100 p-6 text-black outline outline-indigo-200 transition-all duration-150 data-[ending-style]:scale-90 data-[ending-style]:opacity-0 data-[starting-style]:scale-90 data-[starting-style]:opacity-0">
 						<Dialog.Title className="text-lg md:text-xl font-medium mb-4">
 							Faltas e Atestados de:{" "}
 							<span className="font-bold">{funcionarioNome}</span>
 						</Dialog.Title>
 						<Tabs.Root defaultValue="faltas">
-							<Tabs.List className="flex border-b border-indigo-300 mb-4">
+							<Tabs.List className="flex mb-4">
 								<Tabs.Tab
 									className="px-4 py-2 border-b-2 border-transparent data-[selected]:border-indigo-500 data-[selected]:text-indigo-700"
 									value="faltas"
@@ -130,7 +130,7 @@ const FuncionarioDetalhes = ({
 						</Tabs.Root>
 						<div className="mt-4 flex justify-end">
 							<button
-								className="bg-indigo-500 hover:bg-indigo-600 px-4 py-2 text-white rounded"
+								className="bg-indigo-500 hover:bg-indigo-600 px-4 py-2 text-white"
 								onClick={onClose}
 							>
 								Fechar
@@ -143,7 +143,7 @@ const FuncionarioDetalhes = ({
 			<Dialog.Root open={faltaModalOpen} onOpenChange={setFaltaModalOpen}>
 				<Dialog.Portal>
 					<Dialog.Backdrop className="fixed inset-0 bg-black opacity-20 transition-all duration-150 data-[ending-style]:opacity-0 data-[starting-style]:opacity-0 dark:opacity-50 z-60" />
-					<Dialog.Popup className="fixed top-1/2 left-1/2 -mt-8 min-w-md max-w-[calc(100vw-3rem)] -translate-x-1/2 -translate-y-1/2 rounded-lg bg-indigo-100 p-6 text-black outline outline-indigo-200 transition-all duration-150 data-[ending-style]:scale-90 data-[ending-style]:opacity-0 data-[starting-style]:scale-90 data-[starting-style]:opacity-0 z-70">
+					<Dialog.Popup className="fixed top-1/2 left-1/2 -mt-8 min-w-md max-w-[calc(100vw-3rem)] -translate-x-1/2 -translate-y-1/2 bg-indigo-100 p-6 text-black outline outline-indigo-200 transition-all duration-150 data-[ending-style]:scale-90 data-[ending-style]:opacity-0 data-[starting-style]:scale-90 data-[starting-style]:opacity-0 z-70">
 						<FaltasForm
 							closeModal={() => setFaltaModalOpen(false)}
 							currentFalta={currentFalta}
@@ -162,7 +162,7 @@ const FuncionarioDetalhes = ({
 			>
 				<Dialog.Portal>
 					<Dialog.Backdrop className="fixed inset-0 bg-black opacity-20 transition-all duration-150 data-[ending-style]:opacity-0 data-[starting-style]:opacity-0 dark:opacity-50 z-60" />
-					<Dialog.Popup className="fixed top-1/2 left-1/2 -mt-8 min-w-md max-w-[calc(100vw-3rem)] -translate-x-1/2 -translate-y-1/2 rounded-lg bg-indigo-100 p-6 text-black outline outline-indigo-200 transition-all duration-150 data-[ending-style]:scale-90 data-[ending-style]:opacity-0 data-[starting-style]:scale-90 data-[starting-style]:opacity-0 z-70">
+					<Dialog.Popup className="fixed top-1/2 left-1/2 -mt-8 min-w-md max-w-[calc(100vw-3rem)] -translate-x-1/2 -translate-y-1/2 bg-indigo-100 p-6 text-black outline outline-indigo-200 transition-all duration-150 data-[ending-style]:scale-90 data-[ending-style]:opacity-0 data-[starting-style]:scale-90 data-[starting-style]:opacity-0 z-70">
 						<AtestadosForm
 							closeModal={() => setAtestadoModalOpen(false)}
 							currentAtestado={currentAtestado}
@@ -178,7 +178,7 @@ const FuncionarioDetalhes = ({
 			<AlertDialog.Root open={alertOpen} onOpenChange={setAlertOpen}>
 				<AlertDialog.Portal>
 					<AlertDialog.Backdrop className="fixed inset-0 bg-black opacity-20 transition-all duration-150 data-[ending-style]:opacity-0 data-[starting-style]:opacity-0 dark:opacity-50" />
-					<AlertDialog.Popup className="fixed top-1/2 left-1/2 -mt-8 min-w-sm max-w-[calc(100vw-3rem)] -translate-x-1/2 -translate-y-1/2 rounded-lg bg-indigo-100 p-6 text-black outline outline-indigo-200 transition-all duration-150 data-[ending-style]:scale-90 data-[ending-style]:opacity-0 data-[starting-style]:scale-90 data-[starting-style]:opacity-0">
+					<AlertDialog.Popup className="fixed top-1/2 left-1/2 -mt-8 min-w-sm max-w-[calc(100vw-3rem)] -translate-x-1/2 -translate-y-1/2 bg-indigo-100 p-6 text-black outline outline-indigo-200 transition-all duration-150 data-[ending-style]:scale-90 data-[ending-style]:opacity-0 data-[starting-style]:scale-90 data-[starting-style]:opacity-0">
 						<AlertDialog.Title className="-mt-1.5 mb-1 text-lg font-medium">
 							Excluir{" "}
 							{alertType === "falta" ? "Falta" : "Atestado"}?

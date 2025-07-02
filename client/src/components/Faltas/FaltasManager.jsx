@@ -1,6 +1,7 @@
 import { Input } from "@base-ui-components/react/input";
 import { Dialog } from "@base-ui-components/react/dialog";
 
+import BulkFaltasForm from "./BulkFaltasForm";
 import FaltasResults from "./FaltasResults";
 import FaltasForm from "./FaltasForm";
 
@@ -19,6 +20,14 @@ const FaltasManager = () => {
 	const [results, setResults] = useState([]);
 	const [modalOpen, setModalOpen] = useState(false);
 	const [currentFalta, setCurrentFalta] = useState(null);
+	const [actionType, setActionType] = useState("single");
+
+	const handleOpenModal = (type) => {
+		return () => {
+			setActionType(type);
+			setModalOpen(true);
+		};
+	};
 
 	const deleteAction = async (id) => {
 		if (!id) return;
@@ -96,23 +105,39 @@ const FaltasManager = () => {
 					</button>
 				</form>
 				<div className="flex flex-row gap-3 w-full px-6 pt-6 mt-6 md:mt-0 md:pt-0 border-t-3 md:border-t-0 border-indigo-900">
+					<button
+						onClick={handleOpenModal("single")}
+						className="bg-indigo-500 hover:bg-indigo-600 px-3 w-full py-1 md:h-8 md:mt-auto md:ml-auto"
+						type="button"
+					>
+						Cadastrar Falta
+					</button>
+					<button
+						onClick={handleOpenModal("bulk")}
+						className="bg-indigo-500 hover:bg-indigo-600 px-3 w-full py-1 md:h-8 md:mt-auto md:ml-auto"
+						type="button"
+					>
+						Frequência Diária
+					</button>
 					<Dialog.Root open={modalOpen} onOpenChange={setModalOpen}>
-						<Dialog.Trigger
-							className="bg-indigo-500 hover:bg-indigo-600 px-3 w-full py-1 md:h-8 md:mt-auto md:ml-auto"
-							type="button"
-						>
-							Cadastrar Falta
-						</Dialog.Trigger>
 						<Dialog.Portal>
 							<Dialog.Backdrop className="fixed inset-0 bg-black opacity-20 transition-all duration-150 data-[ending-style]:opacity-0 data-[starting-style]:opacity-0 dark:opacity-50" />
-							<Dialog.Popup className="fixed top-1/2 left-1/2 -mt-8 min-w-md max-w-[calc(100vw-3rem)] -translate-x-1/2 -translate-y-1/2 rounded-lg bg-indigo-100 p-6 text-black outline outline-indigo-200 transition-all duration-150 data-[ending-style]:scale-90 data-[ending-style]:opacity-0 data-[starting-style]:scale-90 data-[starting-style]:opacity-0">
-								<FaltasForm
-									closeModal={() => setModalOpen(false)}
-									currentFalta={currentFalta}
-									clearFalta={() => setCurrentFalta(null)}
-									updateAction={updateAction}
-									clearResults={() => setResults([])}
-								/>
+							<Dialog.Popup className="fixed top-1/2 left-1/2 -mt-8 min-w-md max-w-[calc(100vw-3rem)] -translate-x-1/2 -translate-y-1/2 bg-indigo-100 p-6 text-black outline outline-indigo-200 transition-all duration-150 data-[ending-style]:scale-90 data-[ending-style]:opacity-0 data-[starting-style]:scale-90 data-[starting-style]:opacity-0">
+								{actionType === "single" && (
+									<FaltasForm
+										closeModal={() => setModalOpen(false)}
+										currentFalta={currentFalta}
+										clearFalta={() => setCurrentFalta(null)}
+										updateAction={updateAction}
+										clearResults={() => setResults([])}
+									/>
+								)}
+								{actionType === "bulk" && (
+									<BulkFaltasForm
+										closeModal={() => setModalOpen(false)}
+										clearResults={() => setResults([])}
+									/>
+								)}
 							</Dialog.Popup>
 						</Dialog.Portal>
 					</Dialog.Root>

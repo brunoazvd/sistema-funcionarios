@@ -164,7 +164,7 @@ const FuncionarioAutocomplete = ({
 			{showDropdown && filteredFuncionarios.length > 0 && (
 				<div
 					ref={dropdownRef}
-					className="absolute z-10 mt-1 w-full bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-auto"
+					className="absolute z-10 mt-1 w-full bg-white border border-gray-300 shadow-lg max-h-60 overflow-auto"
 				>
 					{filteredFuncionarios.map((funcionario) => (
 						<div

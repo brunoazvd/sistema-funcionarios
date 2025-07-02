@@ -56,7 +56,6 @@ export const buscarAtestadosPorFuncionarioId = async (id) => {
 
 export const pesquisarAtestados = async (data) => {
     try {
-        console.log(data)
         const response = await api.post('/api/atestados/pesquisar', data);
         return response.data;
     } catch (error) {
