@@ -17,7 +17,7 @@ function randomDateInPastMonth() {
 }
 
 function randomCPF() {
-    // Apenas números, formato simples para testes (não valida DV)
+    // Apenas números, sem validação
     return faker.helpers.replaceSymbols('###########')
 }
 
@@ -32,77 +32,92 @@ function fixDate(date) {
 }
 
 async function main() {
-    const cargos = [
-        'DIRETOR', 'PROFESSOR', 'MONITOR_DE_ALUNOS', 'INSPETOR_DE_ALUNOS',
-        'ORIENTADOR_EDUCACIONAL', 'ORIENTADOR_PEDAGOGICO', 'AUXILIAR_SECRETARIA',
-        'VIGIA', 'COZINHEIRO', 'AUXILIAR_DE_SERVICOS_GERAIS'
-    ]
+    const cargos = {
+        'DIRETOR': 1,
+        'DIRETOR_ADJUNTO': 1,
+        'PROFESSOR': 40,
+        'DIRIGENTE_TURNO': 2,
+        'INSPETOR_ESCOLAR': 1,
+        'MONITOR_DE_ALUNOS': 50,
+        'INSPETOR_DE_ALUNOS': 10,
+        'ORIENTADOR_EDUCACIONAL': 4,
+        'ORIENTADOR_PEDAGOGICO': 2,
+        'AUXILIAR_SECRETARIA': 8,
+        'VIGIA': 4,
+        'PEDAGOGO_NAE': 2,
+        'COZINHEIRO': 4,
+        'SECRETARIO': 1,
+        'AUXILIAR_DE_SERVICOS_GERAIS': 6
+    }
 
     const tipoContrato = ['EFETIVO', 'CONTRATO']
     const tipoAtestado = ['COMPARECIMENTO', 'ATESTADO_MEDICO']
     const sexos = ['M', 'F']
 
-    for (let i = 0; i < 200; i++) {
-        const sexo = faker.helpers.arrayElement(sexos)
-        const nome = `${faker.person.firstName({ sex: sexo === 'M' ? 'male' : 'female' })} ${faker.person.lastName()} ${faker.person.lastName()}`
-        const email = faker.internet.email({ firstName: nome.split(' ')[0], lastName: `${nome.split(' ')[1]}${getRandomInt(1, 99)}`, provider: `${Math.random() > 0.5 ? 'escola.com' : 'gmail.com'}` }).toLowerCase()
 
-        const funcionario = await prisma.funcionario.create({
-            data: {
-                nome,
-                cargo: faker.helpers.arrayElement(cargos),
-                status: 'ATIVO',
-                sexo,
-                cpf: randomCPF(),
-                email,
-                telefone: randomTelefone(),
-                dataNascimento: fixDate(faker.date.birthdate({ min: 18, max: 60, mode: 'age' })),
-                dataAdmissao: fixDate(faker.date.past({ years: 3 })),
-                tipoContrato: faker.helpers.arrayElement(tipoContrato)
+    for (let c of Object.keys(cargos)) {
+        for (let i = 1; i <= cargos[c]; i++) {
+            const sexo = faker.helpers.arrayElement(sexos)
+            const nome = `${faker.person.firstName({ sex: sexo === 'M' ? 'male' : 'female' })} ${faker.person.lastName()} ${faker.person.lastName()}`
+            const email = faker.internet.email({ firstName: nome.split(' ')[0], lastName: `${nome.split(' ')[1]}${getRandomInt(1, 99)}`, provider: `${Math.random() > 0.5 ? 'escola.com' : 'gmail.com'}` }).toLowerCase()
+
+            const funcionario = await prisma.funcionario.create({
+                data: {
+                    nome,
+                    cargo: c,
+                    status: 'ATIVO',
+                    sexo,
+                    cpf: randomCPF(),
+                    email,
+                    telefone: randomTelefone(),
+                    dataNascimento: fixDate(faker.date.birthdate({ min: 18, max: 60, mode: 'age' })),
+                    dataAdmissao: fixDate(faker.date.past({ years: 3 })),
+                    tipoContrato: faker.helpers.arrayElement(tipoContrato)
+                }
+            })
+
+            const faltas = []
+            const faltaDatas = new Set()
+            const numFaltas = getRandomInt(0, 5)
+
+            for (let j = 0; j < numFaltas; j++) {
+                const dataFalta = fixDate(faker.date.past({ years: 1 }))
+                if (faltaDatas.has(dataFalta)) continue
+                faltaDatas.add(dataFalta)
+
+                const falta = await prisma.falta.create({
+                    data: {
+                        funcionarioId: funcionario.id,
+                        data: new Date(dataFalta),
+                        observacao: Math.random() > 0.5 ? faker.lorem.sentence() : null
+                    }
+                })
+
+                faltas.push({ falta, data: dataFalta })
             }
-        })
 
-        const faltas = []
-        const faltaDatas = new Set()
-        const numFaltas = getRandomInt(0, 5)
+            // Adicionar até 3 atestados em faltas aleatórias
+            const faltasComAtestado = getRandomInt(0, Math.min(3, faltas.length))
+            const usadas = new Set()
+            for (let k = 0; k < faltasComAtestado; k++) {
+                let index
+                do {
+                    index = getRandomInt(0, faltas.length - 1)
+                } while (usadas.has(index))
+                usadas.add(index)
 
-        for (let j = 0; j < numFaltas; j++) {
-            const dataFalta = fixDate(faker.date.past({ years: 1 }))
-            if (faltaDatas.has(dataFalta)) continue
-            faltaDatas.add(dataFalta)
+                const randomTipo = faker.helpers.arrayElement(tipoAtestado);
 
-            const falta = await prisma.falta.create({
-                data: {
-                    funcionarioId: funcionario.id,
-                    data: new Date(dataFalta),
-                    observacao: Math.random() > 0.5 ? faker.lorem.sentence() : null
-                }
-            })
-
-            faltas.push({ falta, data: dataFalta })
-        }
-
-        // Adicionar até 3 atestados em faltas aleatórias
-        const faltasComAtestado = getRandomInt(0, Math.min(3, faltas.length))
-        const usadas = new Set()
-        for (let k = 0; k < faltasComAtestado; k++) {
-            let index
-            do {
-                index = getRandomInt(0, faltas.length - 1)
-            } while (usadas.has(index))
-            usadas.add(index)
-
-            const randomTipo = faker.helpers.arrayElement(tipoAtestado);
-
-            await prisma.atestado.create({
-                data: {
-                    funcionarioId: funcionario.id,
-                    data: new Date(faltas[index].data),
-                    dias: randomTipo === "ATESTADO_MEDICO" ? getRandomInt(1, 5) : 0,
-                    tipo: randomTipo,
-                    observacao: Math.random() > 0.3 ? faker.lorem.words(3) : null
-                }
-            })
+                await prisma.atestado.create({
+                    data: {
+                        funcionarioId: funcionario.id,
+                        data: new Date(faltas[index].data),
+                        dias: randomTipo === "ATESTADO_MEDICO" ? getRandomInt(1, 5) : 0,
+                        tipo: randomTipo,
+                        observacao: Math.random() > 0.3 ? faker.lorem.words(3) : null
+                    }
+                })
+            }
         }
     }
 
