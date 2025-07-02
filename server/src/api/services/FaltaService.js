@@ -114,6 +114,11 @@ class FaltaService {
                 return [];
             }
 
+            where.funcionario = {
+                ...where.funcionario,
+                status: "ATIVO",
+            };
+
             const faltas = await this.prisma.falta.findMany({
                 where,
                 include: {

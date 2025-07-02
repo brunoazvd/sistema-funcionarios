@@ -105,6 +105,11 @@ class AtestadoService {
         return [];
       }
 
+      where.funcionario = {
+        ...where.funcionario,
+        status: "ATIVO",
+      };
+
       const atestados = await this.prisma.atestado.findMany({
         where,
         include: {

@@ -27,6 +27,7 @@ const initialState = {
 	email: "",
 	telefone: "",
 	tipoContrato: "",
+	status: "ATIVO",
 };
 
 const FuncionariosForm = ({
@@ -78,6 +79,7 @@ const FuncionariosForm = ({
 				email: formData.email,
 				telefone: telefoneFormatado,
 				tipoContrato: formData.tipoContrato,
+				status: formData.status,
 			});
 			toastManager.add({
 				title: "Funcionário cadastrado com sucesso!",
@@ -97,6 +99,7 @@ const FuncionariosForm = ({
 					email: formData.email,
 					telefone: telefoneFormatado,
 					tipoContrato: formData.tipoContrato,
+					status: formData.status,
 				}
 			);
 			clearFuncionario();
@@ -129,6 +132,7 @@ const FuncionariosForm = ({
 				email: currentFuncionario.email,
 				telefone: telefoneFormatado,
 				tipoContrato: currentFuncionario.tipoContrato,
+				status: currentFuncionario.status,
 			});
 		} else {
 			setFormData(initialState);
@@ -245,6 +249,29 @@ const FuncionariosForm = ({
 							/>
 						</div>
 					</div>
+					{currentFuncionario !== null && (
+						<div>
+							<p className="font-medium mb-1">Status:</p>
+							<select
+								name="status"
+								className={
+									"bg-indigo-50 w-full py-1 px-2" +
+									(formData.status === "ATIVO"
+										? " text-green-800"
+										: " text-red-800")
+								}
+								value={formData.status}
+								onChange={handleChange}
+							>
+								<option value="ATIVO" className="text-black">
+									Ativo
+								</option>
+								<option value="INATIVO" className="text-black">
+									Inativo
+								</option>
+							</select>
+						</div>
+					)}
 				</div>
 				<button
 					type="submit"

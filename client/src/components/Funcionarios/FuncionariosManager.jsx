@@ -16,6 +16,7 @@ import { useState } from "react";
 const initialState = {
 	cargo: "",
 	funcionario: "",
+	incluirInativos: false,
 };
 
 const FuncionariosManager = () => {
@@ -24,6 +25,8 @@ const FuncionariosManager = () => {
 	const [modalOpen, setModalOpen] = useState(false);
 	const [detailsOpen, setDetailsOpen] = useState(false);
 	const [currentFuncionario, setCurrentFuncionario] = useState(null);
+
+	console.log(formData);
 
 	const deleteAction = async (id) => {
 		if (!id) return;
@@ -53,10 +56,17 @@ const FuncionariosManager = () => {
 
 	const handleChange = (event) => {
 		const { name, value } = event.target;
-		setFormData({
-			...formData,
-			[name]: value,
-		});
+		if (name === "incluirInativos") {
+			setFormData({
+				...formData,
+				[name]: JSON.parse(value),
+			});
+		} else {
+			setFormData({
+				...formData,
+				[name]: value,
+			});
+		}
 	};
 
 	return (
@@ -83,6 +93,18 @@ const FuncionariosManager = () => {
 							handleChange={handleChange}
 							name="cargo"
 						/>
+					</div>
+					<div className="min-w-32">
+						<p className="font-bold mb-1 mr-2">Incluir Inativos?</p>
+						<select
+							name="incluirInativos"
+							className="bg-indigo-50 w-full text-black  py-1 px-2"
+							value={formData.incluirInativos}
+							onChange={handleChange}
+						>
+							<option value={false}>Não</option>
+							<option value={true}>Sim</option>
+						</select>
 					</div>
 					<button
 						className="bg-indigo-500 hover:bg-indigo-600 px-3 h-8 md:mt-auto mt-3"

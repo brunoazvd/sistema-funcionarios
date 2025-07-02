@@ -50,7 +50,7 @@ export default {
 
     async pesquisar(req, res) {
         try {
-            const funcionarios = await FuncionarioService.search(req.body.funcionario, req.body.cargo);
+            const funcionarios = await FuncionarioService.search(req.body.funcionario, req.body.cargo, req.body.incluirInativos);
             return res.status(200).json(funcionarios);
         } catch (error) {
             return res.status(400).json({ error: true, message: error.message });

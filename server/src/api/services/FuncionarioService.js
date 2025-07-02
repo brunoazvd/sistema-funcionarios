@@ -59,7 +59,7 @@ class FuncionarioService {
         }
     }
 
-    async search(nome, cargo) {
+    async search(nome, cargo, incluirInativos) {
         try {
             const where = {};
             if (nome) {
@@ -72,6 +72,9 @@ class FuncionarioService {
             }
             if (Object.keys(where).length === 0) {
                 return [];
+            }
+            if (!incluirInativos) {
+                where.status = "ATIVO";
             }
             const funcionarios = await prisma.funcionario.findMany({
                 where,
