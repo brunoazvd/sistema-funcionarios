@@ -87,9 +87,6 @@ const BulkFaltasForm = () => {
 
 		// Criando faltas que devem ser criadas
 		for (const faltaParaCadastrar of faltasParaCadastrar) {
-			console.log(
-				`Cadastrando falta para ${faltaParaCadastrar.funcionarioId} em ${dataFalta}`
-			);
 			await cadastrarFalta({
 				funcionarioId: Number(faltaParaCadastrar.funcionarioId),
 				data: new Date(dataFalta),
@@ -104,15 +101,10 @@ const BulkFaltasForm = () => {
 					(falta) =>
 						falta.funcionarioId === faltaParaDeletar.funcionarioId
 				);
-				console.log(
-					`Deletando falta ${falta.id} para ${faltaParaDeletar.funcionarioId} em ${dataFalta}`
-				);
+
 				await deletarFalta(falta.id);
 			}
 		}
-
-		console.log("novas faltas", faltasParaCadastrar);
-		console.log("excluir", faltasParaDeletar);
 
 		setInitialFaltasState(currentFaltasState);
 	};
