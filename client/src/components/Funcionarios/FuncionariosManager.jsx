@@ -6,6 +6,8 @@ import FuncionariosForm from "./FuncionariosForm";
 import FuncionarioDetalhes from "./FuncionarioDetalhes.jsx";
 import CargoSelect from "../selects/CargoSelect.jsx";
 
+import { useLoading } from "../../contexts/LoadingContext.jsx";
+
 import {
 	deletarFuncionario,
 	pesquisarFuncionarios,
@@ -25,6 +27,8 @@ const FuncionariosManager = () => {
 	const [modalOpen, setModalOpen] = useState(false);
 	const [detailsOpen, setDetailsOpen] = useState(false);
 	const [currentFuncionario, setCurrentFuncionario] = useState(null);
+
+	const { startLoading, stopLoading } = useLoading();
 
 	const deleteAction = async (id) => {
 		if (!id) return;
@@ -136,6 +140,7 @@ const FuncionariosManager = () => {
 					</Dialog.Root>
 				</div>
 			</div>
+			<div onClick={() => startLoading(3000)}>Testar Loading</div>
 			{results && (
 				<div className="px-2 xl:px-0">
 					<FuncionariosResults
