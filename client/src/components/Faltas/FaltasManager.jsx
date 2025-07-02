@@ -67,7 +67,7 @@ const FaltasManager = () => {
 						/>
 					</div>
 					<div className="grid grid-cols-2 gap-3 md:flex md:flex-row">
-						<div>
+						<div className="mr-4 md:mr-0">
 							<p className="font-bold mb-1">Data Inicial:</p>
 							<Input
 								name="dataInicial"
@@ -77,7 +77,7 @@ const FaltasManager = () => {
 								onChange={handleChange}
 							/>
 						</div>
-						<div>
+						<div className="mr-4 md:mr-0">
 							<p className="font-bold mb-1">Data Final:</p>
 							<Input
 								name="dataFinal"
