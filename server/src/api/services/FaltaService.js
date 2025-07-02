@@ -82,6 +82,9 @@ class FaltaService {
                 where: {
                     funcionarioId: id,
                 },
+                orderBy: {
+                    data: "desc",
+                },
             });
 
             return faltas;
@@ -119,7 +122,10 @@ class FaltaService {
                             nome: true,
                         },
                     }
-                }
+                },
+                orderBy: {
+                    data: "desc",
+                },
             });
 
             return faltas;

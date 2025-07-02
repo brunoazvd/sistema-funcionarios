@@ -73,6 +73,9 @@ class AtestadoService {
     try {
       const atestados = await this.prisma.atestado.findMany({
         where: { funcionarioId: id },
+        orderBy: {
+          data: "desc",
+        },
       });
 
       return atestados;
