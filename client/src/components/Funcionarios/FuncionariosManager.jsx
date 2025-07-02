@@ -61,9 +61,9 @@ const FuncionariosManager = () => {
 
 	return (
 		<>
-			<div className="flex flex-row border-b-3 border-indigo-900 pb-6 pt-4 mb-9">
+			<div className="flex flex-col md:flex-row border-b-3 border-indigo-900 pb-6 pt-4 mb-9">
 				<form
-					className="flex flex-row gap-3 w-min px-6"
+					className="flex flex-col md:flex-row gap-3 md:w-min px-6"
 					onSubmit={handleSubmit}
 				>
 					<div>
@@ -85,16 +85,16 @@ const FuncionariosManager = () => {
 						/>
 					</div>
 					<button
-						className="bg-indigo-500 hover:bg-indigo-600 px-3 h-8 mt-auto"
+						className="bg-indigo-500 hover:bg-indigo-600 px-3 h-8 md:mt-auto mt-3"
 						type="submit"
 					>
 						Pesquisar
 					</button>
 				</form>
-				<div className="flex flex-row gap-3 w-full px-6">
+				<div className="flex flex-row gap-3 w-full px-6 pt-6 mt-6 md:mt-0 md:pt-0 border-t-3 md:border-t-0 border-indigo-900">
 					<Dialog.Root open={modalOpen} onOpenChange={setModalOpen}>
 						<Dialog.Trigger
-							className="bg-indigo-500 hover:bg-indigo-600 px-3 h-8 mt-auto ml-auto"
+							className="bg-indigo-500 hover:bg-indigo-600 px-3 w-full py-1 md:h-8 md:mt-auto md:ml-auto"
 							type="button"
 						>
 							Cadastrar Funcionário
@@ -117,15 +117,17 @@ const FuncionariosManager = () => {
 				</div>
 			</div>
 			{results && (
-				<FuncionariosResults
-					results={results}
-					deleteAction={deleteAction}
-					setModalContent={(funcionario) => {
-						setCurrentFuncionario(funcionario);
-						setModalOpen(true);
-					}}
-					handleViewDetails={handleViewDetails}
-				/>
+				<div className="px-2 xl:px-0">
+					<FuncionariosResults
+						results={results}
+						deleteAction={deleteAction}
+						setModalContent={(funcionario) => {
+							setCurrentFuncionario(funcionario);
+							setModalOpen(true);
+						}}
+						handleViewDetails={handleViewDetails}
+					/>
+				</div>
 			)}
 			{currentFuncionario && (
 				<FuncionarioDetalhes

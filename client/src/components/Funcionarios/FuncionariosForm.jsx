@@ -155,7 +155,7 @@ const FuncionariosForm = ({
 							required
 						/>
 					</div>
-					<div className="grid grid-cols-2 gap-3">
+					<div className="grid md:grid-cols-2 gap-3">
 						<div>
 							<p className="font-medium mb-1">Cargo:</p>
 							<CargoSelect
@@ -173,7 +173,17 @@ const FuncionariosForm = ({
 							/>
 						</div>
 					</div>
-					<div className="grid grid-cols-2 gap-3">
+					<div className="grid md:grid-cols-3 gap-3">
+						<div className="md:col-span-2">
+							<p className="font-medium mb-1">E-mail:</p>
+							<Input
+								name="email"
+								className="bg-indigo-50 w-full px-2 py-1"
+								type="text"
+								value={formData.email}
+								onChange={handleChange}
+							/>
+						</div>
 						<div>
 							<p className="font-medium mb-1">Telefone:</p>
 							<Input
@@ -181,16 +191,6 @@ const FuncionariosForm = ({
 								className="bg-indigo-50 w-full px-2 py-1"
 								type="text"
 								value={formData.telefone}
-								onChange={handleChange}
-							/>
-						</div>
-						<div>
-							<p className="font-medium mb-1">E-mail:</p>
-							<Input
-								name="email"
-								className="bg-indigo-50 w-full px-2 py-1"
-								type="text"
-								value={formData.email}
 								onChange={handleChange}
 							/>
 						</div>

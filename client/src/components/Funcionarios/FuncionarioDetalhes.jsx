@@ -85,8 +85,8 @@ const FuncionarioDetalhes = ({
 			<Dialog.Root open={isOpen} onOpenChange={onClose}>
 				<Dialog.Portal>
 					<Dialog.Backdrop className="fixed inset-0 bg-black opacity-20 transition-all duration-150 data-[ending-style]:opacity-0 data-[starting-style]:opacity-0 dark:opacity-50" />
-					<Dialog.Popup className="fixed top-1/2 left-1/2 -mt-8 min-w-2xl max-w-[calc(100vw-3rem)] -translate-x-1/2 -translate-y-1/2 rounded-lg bg-indigo-100 p-6 text-black outline outline-indigo-200 transition-all duration-150 data-[ending-style]:scale-90 data-[ending-style]:opacity-0 data-[starting-style]:scale-90 data-[starting-style]:opacity-0">
-						<Dialog.Title className="text-xl font-medium mb-4">
+					<Dialog.Popup className="fixed top-1/2 left-1/2 -mt-8 md:min-w-2xl min-w-md max-w-[calc(100vw-3rem)] -translate-x-1/2 -translate-y-1/2 rounded-lg bg-indigo-100 p-6 text-black outline outline-indigo-200 transition-all duration-150 data-[ending-style]:scale-90 data-[ending-style]:opacity-0 data-[starting-style]:scale-90 data-[starting-style]:opacity-0">
+						<Dialog.Title className="text-lg md:text-xl font-medium mb-4">
 							Faltas e Atestados de:{" "}
 							<span className="font-bold">{funcionarioNome}</span>
 						</Dialog.Title>
