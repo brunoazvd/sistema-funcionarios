@@ -1,6 +1,7 @@
 import { Input } from "@base-ui-components/react/input";
 import { Toast } from "@base-ui-components/react/toast";
 import { useState, useEffect } from "react";
+import { useLoading } from "../../contexts/LoadingContext.jsx";
 
 import { cadastrarFalta, atualizarFalta } from "../../services/api/faltas.js";
 
@@ -22,6 +23,8 @@ const FaltasForm = ({
 	clearResults,
 }) => {
 	const [formData, setFormData] = useState(initialState);
+	const { startLoading, stopLoading } = useLoading();
+
 	const toastManager = Toast.useToastManager();
 
 	const handleChange = (event) => {
@@ -34,6 +37,7 @@ const FaltasForm = ({
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
+		startLoading(10000);
 
 		if (currentFalta === null) {
 			const falta = await cadastrarFalta({
@@ -59,6 +63,7 @@ const FaltasForm = ({
 				duration: 3000,
 			});
 		}
+		stopLoading();
 		closeModal();
 	};
 

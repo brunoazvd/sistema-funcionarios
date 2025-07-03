@@ -32,8 +32,10 @@ const FuncionariosManager = () => {
 
 	const deleteAction = async (id) => {
 		if (!id) return;
+		startLoading(10000);
 		await deletarFuncionario(id);
 		setResults((prev) => prev.filter((item) => item.id !== id));
+		stopLoading();
 	};
 
 	const updateAction = async (updatedFuncionario) => {
@@ -140,7 +142,6 @@ const FuncionariosManager = () => {
 					</Dialog.Root>
 				</div>
 			</div>
-			<div onClick={() => startLoading(3000)}>Testar Loading</div>
 			{results && (
 				<div className="px-2 xl:px-0">
 					<FuncionariosResults

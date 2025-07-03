@@ -6,6 +6,7 @@ import {
 
 import { useState } from "react";
 import { useFuncionarios } from "../../contexts/FuncionariosContext.jsx";
+import { useLoading } from "../../contexts/LoadingContext.jsx";
 
 import FaltasCategoriaTable from "./FaltasCategoriaTable";
 
@@ -33,8 +34,9 @@ const categorias = {
 	MONITOR: ["MONITOR_DE_ALUNOS"],
 };
 
-const BulkFaltasForm = () => {
+const BulkFaltasForm = ({ closeModal, clearResults }) => {
 	const { funcionarios } = useFuncionarios();
+	const { startLoading, stopLoading } = useLoading();
 
 	const [dataFalta, setDataFalta] = useState("");
 	const [initialFaltasState, setInitialFaltasState] = useState(null);
@@ -43,7 +45,7 @@ const BulkFaltasForm = () => {
 
 	const handleSearch = async () => {
 		if (!dataFalta || dataFalta.length !== 10) return;
-
+		startLoading(10000);
 		const resultados = await pesquisarFaltas({
 			dataInicial: dataFalta,
 			dataFinal: dataFalta,
@@ -62,11 +64,13 @@ const BulkFaltasForm = () => {
 
 		setInitialFaltasState(initialState);
 		setCurrentFaltasState(initialState);
+		stopLoading();
 	};
 
 	const handleSave = async () => {
 		if (!dataFalta || dataFalta.length !== 10) return;
 
+		startLoading(10000);
 		// Encontrar funcionários que não tinham falta antes, mas agora têm (criar falta)
 		const faltasParaCadastrar = await currentFaltasState.filter(
 			(current) =>
@@ -107,6 +111,9 @@ const BulkFaltasForm = () => {
 		}
 
 		setInitialFaltasState(currentFaltasState);
+		closeModal();
+		clearResults();
+		stopLoading();
 	};
 
 	return (

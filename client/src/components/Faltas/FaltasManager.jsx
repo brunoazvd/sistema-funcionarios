@@ -7,6 +7,7 @@ import FaltasForm from "./FaltasForm";
 
 import { deletarFalta, pesquisarFaltas } from "../../services/api/faltas";
 
+import { useLoading } from "../../contexts/LoadingContext.jsx";
 import { useState } from "react";
 
 const initialState = {
@@ -22,6 +23,8 @@ const FaltasManager = () => {
 	const [currentFalta, setCurrentFalta] = useState(null);
 	const [actionType, setActionType] = useState("single");
 
+	const { startLoading, stopLoading } = useLoading();
+
 	const handleOpenModal = (type) => {
 		return () => {
 			setActionType(type);
@@ -31,8 +34,10 @@ const FaltasManager = () => {
 
 	const deleteAction = async (id) => {
 		if (!id) return;
+		startLoading(10000);
 		await deletarFalta(id);
 		setResults((prev) => prev.filter((item) => item.id !== id));
+		stopLoading();
 	};
 
 	const updateAction = async (updatedFalta) => {

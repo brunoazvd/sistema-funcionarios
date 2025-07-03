@@ -1,7 +1,7 @@
 import { Input } from "@base-ui-components/react/input";
 import { Toast } from "@base-ui-components/react/toast";
 import { useState, useEffect } from "react";
-
+import { useLoading } from "../../contexts/LoadingContext.jsx";
 import CargoSelect from "../selects/CargoSelect.jsx";
 import SexoSelect from "../selects/SexoSelect.jsx";
 import TipoContratoSelect from "../selects/TipoContratoSelect.jsx";
@@ -38,6 +38,7 @@ const FuncionariosForm = ({
 	updateAction,
 }) => {
 	const [formData, setFormData] = useState(initialState);
+	const { startLoading, stopLoading } = useLoading();
 	const toastManager = Toast.useToastManager();
 
 	const handleChange = (event) => {
@@ -67,7 +68,7 @@ const FuncionariosForm = ({
 
 		const telefoneFormatado = formData.telefone.replace(/\D/g, "");
 		const cpfFormatado = formData.cpf.replace(/\D/g, "");
-
+		startLoading(10000);
 		if (currentFuncionario === null) {
 			const funcionario = await cadastrarFuncionario({
 				nome: formData.nome,
@@ -109,6 +110,7 @@ const FuncionariosForm = ({
 				duration: 3000,
 			});
 		}
+		stopLoading();
 		closeModal();
 	};
 

@@ -1,6 +1,7 @@
 import { Input } from "@base-ui-components/react/input";
 import { Toast } from "@base-ui-components/react/toast";
 import { useState, useEffect } from "react";
+import { useLoading } from "../../contexts/LoadingContext.jsx";
 
 import {
 	cadastrarAtestado,
@@ -28,6 +29,7 @@ const AtestadosForm = ({
 }) => {
 	const [formData, setFormData] = useState(initialState);
 	const toastManager = Toast.useToastManager();
+	const { startLoading, stopLoading } = useLoading();
 
 	const handleChange = (event) => {
 		const { name, value } = event.target;
@@ -39,7 +41,7 @@ const AtestadosForm = ({
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
-
+		startLoading(10000);
 		if (currentAtestado === null) {
 			const atestado = await cadastrarAtestado({
 				funcionarioId: Number(formData.funcionarioId),
@@ -68,6 +70,7 @@ const AtestadosForm = ({
 				duration: 3000,
 			});
 		}
+		stopLoading();
 		closeModal();
 	};
 

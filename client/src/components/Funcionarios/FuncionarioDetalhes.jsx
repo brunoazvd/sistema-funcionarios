@@ -12,6 +12,8 @@ import AtestadosDetalhesResults from "../Atestados/AtestadosDetalhesResults";
 import AtestadosForm from "../Atestados/AtestadosForm";
 import FaltasForm from "../Faltas/FaltasForm";
 
+import { useLoading } from "../../contexts/LoadingContext.jsx";
+
 import { deletarFalta } from "../../services/api/faltas";
 import { deletarAtestado } from "../../services/api/atestados";
 
@@ -38,6 +40,7 @@ const FuncionarioDetalhes = ({
 	}, [funcionarioId, isOpen]);
 
 	const loadData = async () => {
+		startLoading(10000);
 		const faltasData = await buscarFaltasPorFuncionarioId(
 			Number(funcionarioId)
 		);
@@ -46,16 +49,21 @@ const FuncionarioDetalhes = ({
 		);
 		setFaltas(faltasData);
 		setAtestados(atestadosData);
+		stopLoading();
 	};
 
 	const handleDeleteFalta = async (id) => {
+		startLoading(10000);
 		await deletarFalta(id);
 		setFaltas(faltas.filter((falta) => falta.id !== id));
+		stopLoading();
 	};
 
 	const handleDeleteAtestado = async (id) => {
+		startLoading(10000);
 		await deletarAtestado(id);
 		setAtestados(atestados.filter((atestado) => atestado.id !== id));
+		stopLoading();
 	};
 
 	const handleUpdateFalta = (updatedFalta) => {
