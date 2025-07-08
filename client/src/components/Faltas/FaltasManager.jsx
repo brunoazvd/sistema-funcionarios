@@ -59,8 +59,10 @@ const FaltasManager = () => {
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
+		startLoading(10000);
 		const resultados = await pesquisarFaltas(formData);
 		setResults(resultados);
+		stopLoading();
 	};
 
 	return (

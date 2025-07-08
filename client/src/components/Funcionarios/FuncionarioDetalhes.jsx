@@ -32,6 +32,7 @@ const FuncionarioDetalhes = ({
 	const [currentAtestado, setCurrentAtestado] = useState(null);
 	const [deleteId, setDeleteId] = useState(0);
 	const [alertType, setAlertType] = useState("falta");
+	const { startLoading, stopLoading } = useLoading();
 
 	useEffect(() => {
 		if (funcionarioId && isOpen) {

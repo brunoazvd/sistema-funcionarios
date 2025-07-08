@@ -9,6 +9,7 @@ import {
 	pesquisarAtestados,
 } from "../../services/api/atestados";
 
+import { useLoading } from "../../contexts/LoadingContext.jsx";
 import { useState } from "react";
 
 const initialState = {
@@ -22,6 +23,7 @@ const AtestadosManager = () => {
 	const [results, setResults] = useState([]);
 	const [modalOpen, setModalOpen] = useState(false);
 	const [currentAtestado, setCurrentAtestado] = useState(null);
+	const { startLoading, stopLoading } = useLoading();
 
 	const deleteAction = async (id) => {
 		if (!id) return;
@@ -48,8 +50,10 @@ const AtestadosManager = () => {
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
+		startLoading(10000);
 		const resultados = await pesquisarAtestados(formData);
 		setResults(resultados);
+		stopLoading();
 	};
 
 	return (

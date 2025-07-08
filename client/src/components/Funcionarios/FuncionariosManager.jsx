@@ -54,8 +54,10 @@ const FuncionariosManager = () => {
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
+		startLoading(10000);
 		const resultados = await pesquisarFuncionarios(formData);
 		setResults(resultados);
+		stopLoading();
 	};
 
 	const handleChange = (event) => {

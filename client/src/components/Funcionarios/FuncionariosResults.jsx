@@ -25,10 +25,10 @@ const FuncionariosResults = ({
 						<table className="text-black table-auto text-left w-full">
 							<thead className="bg-indigo-500 text-indigo-50 sticky top-0">
 								<tr>
-									<th className="p-2 w-4/10">Nome</th>
-									<th className="p-2 w-2/10">Cargo</th>
-									<th className="p-2 w-2/10">Telefone</th>
-									<th className="p-2 w-2/10">Ações</th>
+									<th className="p-2 w-4/12">Nome</th>
+									<th className="p-2 w-3/12">Cargo</th>
+									<th className="p-2 w-2/12">Telefone</th>
+									<th className="p-2 w-3/12">Ações</th>
 								</tr>
 							</thead>
 							<tbody>
