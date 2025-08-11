@@ -17,10 +17,15 @@ app.use(express.static(path.join(__dirname, 'build')));
 
 app.use(apiRoutes);
 
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+app.use((req, res, next) => {
+  res.setHeader("Content-Security-Policy", 'self');
 });
 
-app.listen(3005, "0.0.0.0", () => {
+//app.get("*", (req, res) => {
+//	console.log("request received");
+//	res.sendFile(path.join(__dirname, "build", "index.html"));
+//})
+
+app.listen(3005, () => {
     console.log("Server is running");
 });
