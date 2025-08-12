@@ -125,12 +125,12 @@ const FuncionariosForm = ({
 				cargo: currentFuncionario.cargo,
 				sexo: currentFuncionario.sexo,
 				cpf: currentFuncionario.cpf,
-				dataNascimento: formatISOToDateOnly(
-					currentFuncionario.dataNascimento
-				),
-				dataAdmissao: formatISOToDateOnly(
-					currentFuncionario.dataAdmissao
-				),
+				dataNascimento: currentFuncionario.dataNascimento
+					? formatISOToDateOnly(currentFuncionario.dataNascimento)
+					: "",
+				dataAdmissao: currentFuncionario.dataAdmissao
+					? formatISOToDateOnly(currentFuncionario.dataAdmissao)
+					: "",
 				email: currentFuncionario.email,
 				telefone: telefoneFormatado,
 				tipoContrato: currentFuncionario.tipoContrato,
@@ -212,7 +212,6 @@ const FuncionariosForm = ({
 								type="date"
 								value={formData.dataNascimento}
 								onChange={handleChange}
-								required
 							/>
 						</div>
 						<div>
@@ -225,7 +224,6 @@ const FuncionariosForm = ({
 								type="date"
 								value={formData.dataAdmissao}
 								onChange={handleChange}
-								required
 							/>
 						</div>
 					</div>
