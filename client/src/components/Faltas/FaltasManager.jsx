@@ -26,10 +26,8 @@ const FaltasManager = () => {
 	const { startLoading, stopLoading } = useLoading();
 
 	const handleOpenModal = (type) => {
-		return () => {
-			setActionType(type);
-			setModalOpen(true);
-		};
+		setActionType(type);
+		setModalOpen(true);
 	};
 
 	const deleteAction = async (id) => {
@@ -113,14 +111,19 @@ const FaltasManager = () => {
 				</form>
 				<div className="flex flex-row gap-3 w-full px-6 pt-6 mt-6 md:mt-0 md:pt-0 border-t-3 md:border-t-0 border-indigo-900">
 					<button
-						onClick={handleOpenModal("single")}
+						onClick={() => {
+							setCurrentFalta(null);
+							handleOpenModal("single");
+						}}
 						className="bg-indigo-500 hover:bg-indigo-600 px-3 w-full py-1 md:h-8 md:mt-auto md:ml-auto"
 						type="button"
 					>
 						Cadastrar Falta
 					</button>
 					<button
-						onClick={handleOpenModal("bulk")}
+						onClick={() => {
+							handleOpenModal("bulk");
+						}}
 						className="bg-indigo-500 hover:bg-indigo-600 px-3 w-full py-1 md:h-8 md:mt-auto md:ml-auto"
 						type="button"
 					>
@@ -156,7 +159,7 @@ const FaltasManager = () => {
 						results={results}
 						setModalContent={(falta) => {
 							setCurrentFalta(falta);
-							setModalOpen(true);
+							handleOpenModal("single");
 						}}
 						deleteAction={deleteAction}
 					/>

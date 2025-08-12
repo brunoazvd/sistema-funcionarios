@@ -107,6 +107,7 @@ const AtestadosManager = () => {
 						<Dialog.Trigger
 							className="bg-indigo-500 hover:bg-indigo-600 px-3 w-full py-1 md:h-8 md:mt-auto md:ml-auto"
 							type="button"
+							onClick={() => setCurrentAtestado(null)}
 						>
 							Cadastrar Atestado
 						</Dialog.Trigger>
