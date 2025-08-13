@@ -13,12 +13,12 @@ const __dirname = path.dirname(__filename);
 app.use(cors({ origin: "*" }));
 app.use(express.json());
 
-app.use(express.static(path.join(__dirname, 'build')));
+// app.use(express.static(path.join(__dirname, 'build')));
 
 app.use(apiRoutes);
 
 app.use((req, res, next) => {
-  res.setHeader("Content-Security-Policy", 'self');
+  res.setHeader("Content-Security-Policy", "self");
 });
 
 //app.get("*", (req, res) => {
@@ -27,5 +27,5 @@ app.use((req, res, next) => {
 //})
 
 app.listen(3005, () => {
-    console.log("Server is running");
+  console.log("Server is running");
 });
