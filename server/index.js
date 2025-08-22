@@ -13,7 +13,8 @@ const __dirname = path.dirname(__filename);
 app.use(cors({ origin: "*" }));
 app.use(express.json());
 
-app.use(express.static(path.join(__dirname, "build")));
+app.use(express.static(path.join(__dirname, 'build')));
+
 
 app.use(apiRoutes);
 
