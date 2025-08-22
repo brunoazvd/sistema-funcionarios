@@ -20,6 +20,7 @@ class RelatorioService {
                         select: {
                             nome: true,
                             id: true,
+                            cargo: true,
                         },
                     },
                 },
@@ -62,6 +63,7 @@ class RelatorioService {
             if (!funcionarios.has(funcionarioId)) {
                 funcionarios.set(funcionarioId, {
                     nome: falta.funcionario.nome,
+                    cargo: falta.funcionario.cargo,
                     faltas: [],
                     atestados: []
                 });
@@ -77,6 +79,7 @@ class RelatorioService {
             if (!funcionarios.has(funcionarioId)) {
                 funcionarios.set(funcionarioId, {
                     nome: atestado.funcionario.nome,
+                    cargo: atestado.funcionario.cargo,
                     faltas: [],
                     atestados: []
                 });
@@ -142,7 +145,7 @@ class RelatorioService {
                 ? funcionario.faltas
                     .map(falta => `<li>${formatarData(falta.data)}</li>`)
                     .join('')
-                : '<li>-</li>';
+                : '';
 
             const atestadosFormatados = funcionario.atestados.length > 0
                 ? funcionario.atestados
@@ -162,11 +165,12 @@ class RelatorioService {
                         return `<li>${texto}</li>`;
                     })
                     .join('')
-                : '<li>-</li>';
+                : '';
 
             return `
                 <tr>
                     <td style="border: 1px solid #ddd; padding: 8px;">${funcionario.nome}</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">${funcionario.cargo}</td>
                     <td style="border: 1px solid #ddd; padding: 8px;">
                         <ul style="margin: 0; padding-left: 15px;">
                             ${faltasFormatadas}
@@ -239,8 +243,9 @@ class RelatorioService {
                     <thead>
                         <tr>
                             <th style="width: 25%;">Funcionário</th>
-                            <th style="width: 37.5%;">Faltas</th>
-                            <th style="width: 37.5%;">Atestados</th>
+                            <th style="width: 20%;">Cargo</th>
+                            <th style="width: 20%;">Faltas</th>
+                            <th style="width: 35%;">Atestados</th>
                         </tr>
                     </thead>
                     <tbody>
