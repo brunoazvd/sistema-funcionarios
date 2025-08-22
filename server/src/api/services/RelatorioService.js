@@ -38,6 +38,7 @@ class RelatorioService {
                         select: {
                             nome: true,
                             id: true,
+                            cargo: true,
                         },
                     },
                 },
