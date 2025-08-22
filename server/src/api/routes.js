@@ -3,6 +3,7 @@ import Router from 'express';
 import FuncionarioController from './controllers/FuncionarioController.js';
 import FaltaController from './controllers/FaltaController.js';
 import AtestadoController from './controllers/AtestadoController.js';
+import RelatorioController from './controllers/RelatorioController.js';
 
 const router = Router();
 
@@ -37,5 +38,8 @@ router.get("/api/atestados/id/:id", AtestadoController.buscarPorId);
 router.get("/api/atestados/todos", AtestadoController.buscarTodos);
 router.get("/api/atestados/funcionario/:id", AtestadoController.buscarPorFuncionario);
 router.post("/api/atestados/pesquisar", AtestadoController.pesquisar);
+
+// Relatórios
+router.post("/api/relatorios/faltas-atestados", RelatorioController.gerarRelatorioFaltasAtestados);
 
 export default router
