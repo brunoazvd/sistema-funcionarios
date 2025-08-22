@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Input } from "@base-ui-components/react/input";
+import { gerarRelatorioFaltasAtestados } from "../../services/api/relatorios";
 
 const initialState = {
 	dataInicial: "",
@@ -19,8 +20,11 @@ const RelatorioFaltasAtestados = () => {
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
-		// TODO: Implementar geração do relatório
-		console.log("Gerar relatório:", formData);
+		try {
+			await gerarRelatorioFaltasAtestados(formData);
+		} catch (error) {
+			console.error(error);
+		}
 	};
 
 	return (
