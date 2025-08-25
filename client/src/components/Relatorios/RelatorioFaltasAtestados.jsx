@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Input } from "@base-ui-components/react/input";
 import { gerarRelatorioFaltasAtestados } from "../../services/api/relatorios";
+import { useLoading } from "../../contexts/LoadingContext.jsx";
 
 const initialState = {
 	dataInicial: "",
@@ -9,6 +10,7 @@ const initialState = {
 
 const RelatorioFaltasAtestados = () => {
 	const [formData, setFormData] = useState(initialState);
+	const { startLoading, stopLoading } = useLoading();
 
 	const handleChange = (event) => {
 		const { name, value } = event.target;
@@ -20,11 +22,13 @@ const RelatorioFaltasAtestados = () => {
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
+		startLoading(30000);
 		try {
 			await gerarRelatorioFaltasAtestados(formData);
 		} catch (error) {
 			console.error(error);
 		}
+		stopLoading();
 	};
 
 	return (

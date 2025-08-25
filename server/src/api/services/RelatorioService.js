@@ -144,7 +144,7 @@ class RelatorioService {
         const linhasTabela = dados.map(funcionario => {
             const faltasFormatadas = funcionario.faltas.length > 0
                 ? funcionario.faltas
-                    .map(falta => `<li>${formatarData(falta.data)}</li>`)
+                    .map(falta => `<li>${formatarData(falta.data)}${falta.observacao ? ` - ${falta.observacao}` : ''}</li>`)
                     .join('')
                 : '';
 
@@ -260,6 +260,8 @@ class RelatorioService {
 }
 
 const service = new RelatorioService();
+
+
 export default service;
 
 
